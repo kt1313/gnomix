@@ -9,11 +9,14 @@
 </head>
 <body>
 <h2>Pokoje gościnne</h2>
-<p th:text="${room}"/>
+
 <table>
-    <tr>
-        <td th:text="${room.number}"/>
+    <tbody>
+    <tr th:each="room :${rooms}">
+        <td th:text=" ${room}"/>
     </tr>
+    </tbody>
+
 </table>
 </body>
 </html>
