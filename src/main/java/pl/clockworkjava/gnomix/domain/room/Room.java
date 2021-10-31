@@ -7,4 +7,8 @@ public class Room {
 
     private final String number;
 
+    @Override
+    public String toString() {
+        return "Pokoj oznaczony jako:  " + number;
+    }
 }

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http:/>/www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Gnomix - pokoje</title>
+</head>
+<body>
+<h2>Pokoje gościnne</h2>
+<p th:text="${room}"/>
+<table>
+    <tr>
+        <td th:text="${room.number}"/>
+    </tr>
+</table>
+</body>
+</html>
