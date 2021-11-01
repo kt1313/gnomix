@@ -25,7 +25,9 @@ this.guests.add(gabriel);
         return this.guests;
     }
 
-    public void createNewGuest(String firstName, String lastName, LocalDate parsedDate) {
+    public void createNewGuest
+            (String firstName, String lastName,
+             LocalDate parsedDate, Gender gender) {
 
     Guest newGuest=new Guest(firstName,lastName,parsedDate,Gender.MALE);
 this.guests.add(newGuest);
