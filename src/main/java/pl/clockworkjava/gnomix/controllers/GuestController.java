@@ -29,4 +29,9 @@ public class GuestController {
         return "guests";
     }
 
+    @GetMapping("/createNewGuest")
+    public String createNewGuest(){
+        return "createNewGuest";
+    }
+
 }
