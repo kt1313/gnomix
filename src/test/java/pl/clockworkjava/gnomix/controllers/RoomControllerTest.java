@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import pl.clockworkjava.gnomix.domain.room.BedType;
 import pl.clockworkjava.gnomix.domain.room.Room;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
 
@@ -30,7 +31,7 @@ public class RoomControllerTest {
     @Test
     public void basic() throws Exception {
 
-        Room room1 = new Room("10A");
+        Room room1 = new Room("10A", Arrays.asList( BedType.DOUBLE ));
 
        Mockito.when(roomService.findAllRooms()).thenReturn(Arrays.asList(room1));
 
