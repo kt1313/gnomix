@@ -13,7 +13,8 @@
 <table>
     <thead>
     <tr>
-    <th>Imię</th>
+        <th>ID</th>
+        <th>Imię</th>
     <th>Nazwisko</th>
     <th>Data urodzenia</th>
     <th>Płeć</th>
@@ -21,6 +22,7 @@
     </thead>
     <tbody>
     <tr th:each="guest : ${guests}">
+        <td th:text="${guest.id}"/>
         <td th:text="${guest.firstName}"/>
         <td th:text="${guest.lastName}"/>
         <td th:text="${guest.birthDate}"/>
