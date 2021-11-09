@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import pl.clockworkjava.gnomix.controllers.dto.GuestCreationDTO;
 import pl.clockworkjava.gnomix.domain.guest.GuestService;
 import pl.clockworkjava.gnomix.domain.room.Room;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
@@ -31,5 +33,15 @@ public class RoomController {
         return "rooms";
     }
 
+    @GetMapping("/createNewRoom")
+    public String createNewRoomForm(){
+        return "createNewRoom";
+    }
 
+    @PostMapping("/createNewRoom")
+    public String handleCreateNewRoom(String roomNumber, String bedsDescription ){
+        this.roomService.createNewRoom(roomNumber, bedsDescription);
+
+        return "redirect:rooms";
+    }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Zarezerwuj pokój</title>
+</head>
+<body>
+<h2>Zarezerwuj pokój</h2>
+<form th:action="@{/chooseRoom}" method="post">
+
+    
+
+
+
+    <p>Imię: <input type="text" name="firstName" required/></p>
+    <p>Nazwisko: <input type="text" name="lastName" required/></p>
+    <p>Data urodzenia: <input type="date" name="dateOfBirth" required/></p>
+    <p>Płeć: <select name="gender" required>
+        <option value="MALE">Mężczyzna</option>
+        <option value="FEMALE">Kobieta</option>
+        <option value="2+2">Podwojne i podwojne</option>
+        <option value="2+1">Kobieta</option>
+
+    </select>
+    </p>
+    <p><input type="submit" name="Submit"/></p>
+
+</form>
+</body>
+</html>
