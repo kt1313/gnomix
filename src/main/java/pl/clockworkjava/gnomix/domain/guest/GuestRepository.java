@@ -32,4 +32,14 @@ this.guests.add(gabriel);
     Guest newGuest=new Guest(firstName,lastName,parsedDate,Gender.MALE);
 this.guests.add(newGuest);
     }
+
+    public void remoceById(long id){
+
+    Guest guestToBeDeleted=this.guests.stream()
+            .filter(guest -> guest.getId()==id)
+            .findFirst()
+            .orElseThrow();
+
+    this.guests.remove(guestToBeDeleted);
+    }
 }
