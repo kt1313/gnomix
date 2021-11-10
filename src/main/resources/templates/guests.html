@@ -28,7 +28,10 @@
         <td th:text="${guest.birthDate}"/>
         <td th:text="${guest.gender}"/>
         <td>
-            <a th:href="@{/guests/delete/{id}(id=${guest.id}}">Usuń</a>
+        <a th:href="@{/guests/delete/{id}(id=${guest.id}}">Usuń</a>
+    </td>
+        <td>
+            <a th:href="@{/guests/edit/{id}(id=${guest.id}}">Edytuj</a>
         </td>
     </tr>
     </tbody>

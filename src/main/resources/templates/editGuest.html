@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Edytuj  gościa</title>
+</head>
+<body>
+<h2>Edytuj gościa</h2>
+<form th:action="@{/guests/edit}" method="post">
+    <input type="hidden" name="id" th:value="${guest.id}"/>
+    <p>Imię: <input type="text" name="firstName" th:value="${guest.firstName}" required/></p>
+    <p>Nazwisko: <input type="text" name="lastName" th:value="${guest.lastName}" required/></p>
+    <p>Data urodzenia: <input type="date" name="dateOfBirth" th:value="${guest.birthDate}" required/></p>
+    <p>Płeć: <select name="gender" th:value="${guest.gender}" required>
+        <option value="MALE">Mężczyzna</option>
+        <option value="FEMALE">Kobieta</option>
+
+    </select>
+    </p>
+    <p><input type="submit" name="Submit"/></p>
+
+</form>
+</body>
+</html>

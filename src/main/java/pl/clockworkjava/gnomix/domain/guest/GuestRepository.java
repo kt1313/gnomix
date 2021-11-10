@@ -33,13 +33,21 @@ this.guests.add(gabriel);
 this.guests.add(newGuest);
     }
 
-    public void remoceById(long id){
+    public void removeById(long id){
 
-    Guest guestToBeDeleted=this.guests.stream()
-            .filter(guest -> guest.getId()==id)
-            .findFirst()
-            .orElseThrow();
+    Guest guestToBeDeleted=this.getGuestById(id);
 
     this.guests.remove(guestToBeDeleted);
+    }
+
+    public Guest getGuestById(long id){
+
+        Guest guestById=this.guests.stream()
+                .filter(guest -> guest.getId()==id)
+                .findFirst()
+                .orElseThrow();
+
+        return guestById;
+
     }
 }
