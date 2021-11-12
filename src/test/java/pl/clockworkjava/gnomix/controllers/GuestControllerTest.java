@@ -67,7 +67,7 @@ public class GuestControllerTest {
 
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("guests"));
+                .andExpect(redirectedUrl("/guests"));
 
         GuestCreationDTO dto=new GuestCreationDTO("Tom","Klimkiewicz", LocalDate.parse("2021-11-01"), Gender.MALE);
 
@@ -76,4 +76,50 @@ public class GuestControllerTest {
                 .verify(guestService,Mockito.times(1))
                 .createNewGuest(dto);
     }
+
+    @Test
+    public void handleDeleteTest() throws Exception {
+
+        //jezeli dostal na taki adres: /geusts/delete/21
+        MockHttpServletRequestBuilder request = get("/guests/delete/21");
+
+                //taki request
+        mockMvc.perform(request)
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/guests"));
+
+        //to powinna sie wykonac taka metoda
+        Mockito
+                .verify(guestService,Mockito.times(1))
+                .removeById(21);
+    }
+
+
+    @Test
+    public void handleShowEditFormTest() throws Exception {
+
+        //jezeli dostal na taki adres: /geusts/delete/21
+        MockHttpServletRequestBuilder request = get("/guests/edit/21");
+
+        Guest guest=new Guest
+                ("Tomasz",
+                "Klimkiewicz",
+                        LocalDate.of(1976,5,8),
+                        MALE);
+
+        Mockito.when(guestService.getGuestById(21)).thenReturn(guest);
+
+        //taki request (spodziewamy sie konkretnego modelu i konkr view)
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("guest"))
+                .andExpect(view().name("editGuest"));
+
+        //to powinna sie wykonac taka metoda
+        Mockito
+                .verify(guestService,Mockito.times(1))
+                .removeById(21);
+
+    }
+
 }
