@@ -26,14 +26,25 @@ public class RoomRepository {
 
     public List<Room> findAllRooms() {
 
-       return this.rooms;
+        return this.rooms;
     }
 
     public Room createNewRoom(String roomNumber, List<BedType> beds) {
 
-Room room = new Room(roomNumber, beds);
-this.rooms.add(room);
-return room;
+        Room room = new Room(roomNumber, beds);
+        this.rooms.add(room);
+        return room;
+    }
+
+    public void removeRoomById(long id){
+
+        Room roomToBeDeleted=this.rooms.stream()
+                .filter(room -> room.getRoomId()==id)
+                .findFirst()
+                .orElseThrow();
+
+        this.rooms.remove(roomToBeDeleted);
+
     }
 }
 

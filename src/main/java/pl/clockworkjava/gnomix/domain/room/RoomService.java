@@ -45,4 +45,9 @@ public class RoomService {
         }
     };
 
+    public void removeRoomById(long id){
+
+        this.repository.removeRoomById(id);
+    }
+
 }

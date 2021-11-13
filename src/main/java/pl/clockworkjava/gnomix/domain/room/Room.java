@@ -5,19 +5,17 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class Room {
 
+    private final long roomId;
     private final String number;
-
     private final List<BedType> beds;
-
     private  final Integer size;
 
-//    public Room(String number) {
-//        this.number = number;
-//    }
+
 
     public Room(String number, List<BedType> beds) {
 
@@ -31,10 +29,8 @@ public class Room {
          this.beds=bedsField;
          this.size=this.beds.stream().mapToInt(BedType::getSize).sum();
 
-//        for (BedType bed:beds
-//             ) {
-//            this.size=size+bed.getSize();
-//        }
+         this.roomId=UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+
     }
 
     @Override
