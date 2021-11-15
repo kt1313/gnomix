@@ -40,11 +40,11 @@ public class GuestService {
 
     public void update(GuestUpdateDTO updatedGuest) {
         Guest byId = this.repository.getGuestById(updatedGuest.getId());
-   byId.update(
-           updatedGuest.getFirstName(),
-           updatedGuest.getLastName(),
-           updatedGuest.getDateOfBirth(),
-           updatedGuest.getGender());
+        byId.update(
+                updatedGuest.getFirstName(),
+                updatedGuest.getLastName(),
+                updatedGuest.getDateOfBirth(),
+                updatedGuest.getGender());
 
     }
 }

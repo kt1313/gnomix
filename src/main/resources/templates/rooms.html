@@ -13,9 +13,14 @@
 <table>
     <tbody>
     <tr th:each="room :${rooms}">
-        <td th:text="${room.id}"/>
+        <td th:text="${room.roomId}"/>
         <td th:text=" ${room}"/>
-        <a th:href="@{/rooms/delete/{id}(id=${room.id}}">Usuń</a>
+        <td>
+            <a th:href="@{/rooms/delete/{id}(id=${room.roomId}}">Usuń</a>
+        </td>
+        <td>
+            <a th:href="@{/rooms/edit/{id}(id=${room.roomId}}">Edytuj</a>
+        </td>
     </tr>
     </tbody>
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Edytuj pokój</title>
+</head>
+<body>
+<h2>Edytuj pokój</h2>
+<form th:action="@{/rooms/edit}" method="post">
+    <input type="hidden" name="id" th:value="${room.roomId}">
+    <p>Numer pokoju: <input type="text" name="roomNumber" th:value="${room.roomNumber}" required/></p>
+    <p>Rozklad Lóżek: <select name="bedsDescription" th:value="${room.bedsDescription}" required>
+        <option value="1">Pojedyncze</option>
+        <option value="2">Podwójne</option>
+        <option value="1+1">Dwa pojedyncze</option>
+        <option value="2+1">Podwójne plus pojedyncze</option>
+        <option value="2+2">Podwójne plus podwójne</option>
+        <option value="2+1+1">Podwójne plus dwa pojedyncze</option>
+
+
+    </select>
+    </p>
+    <p><input type="submit" name="Submit"/></p>
+
+</form>
+</body>
+</html>

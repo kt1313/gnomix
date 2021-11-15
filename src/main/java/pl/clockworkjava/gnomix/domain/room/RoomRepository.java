@@ -36,14 +36,21 @@ public class RoomRepository {
         return room;
     }
 
-    public void removeRoomById(long id){
+    public void removeRoomById(long id) {
 
-        Room roomToBeDeleted=this.rooms.stream()
-                .filter(room -> room.getRoomId()==id)
-                .findFirst()
-                .orElseThrow();
+        Room roomToBeDeleted = this.getRoomId(id);
 
         this.rooms.remove(roomToBeDeleted);
+
+    }
+
+
+    public Room getRoomId(long id) {
+
+        return this.rooms.stream()
+                .filter(room -> room.getRoomId() == id)
+                .findFirst()
+                .orElseThrow();
 
     }
 }

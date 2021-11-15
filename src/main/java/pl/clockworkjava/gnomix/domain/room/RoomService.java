@@ -3,6 +3,7 @@ package pl.clockworkjava.gnomix.domain.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.clockworkjava.gnomix.controllers.dto.GuestUpdateDTO;
 import pl.clockworkjava.gnomix.domain.guest.Guest;
 import pl.clockworkjava.gnomix.domain.guest.GuestRepository;
 
@@ -49,5 +50,11 @@ public class RoomService {
 
         this.repository.removeRoomById(id);
     }
+
+    public Room getRoomById(long id) {
+      return   this.repository.getRoomId(id);
+
+    }
+
 
 }

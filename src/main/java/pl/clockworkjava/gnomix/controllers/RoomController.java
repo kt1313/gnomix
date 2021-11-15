@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.clockworkjava.gnomix.controllers.dto.GuestCreationDTO;
+import pl.clockworkjava.gnomix.controllers.dto.GuestUpdateDTO;
 import pl.clockworkjava.gnomix.domain.guest.GuestService;
 import pl.clockworkjava.gnomix.domain.room.Room;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
@@ -23,9 +24,10 @@ public class RoomController {
     private RoomService roomService;
 
     @Autowired
-      public       RoomController(RoomService service){
-        this.roomService=service;
+    public RoomController(RoomService service) {
+        this.roomService = service;
     }
+
     List<Room> rooms = new ArrayList<>();
 
 
@@ -37,22 +39,34 @@ public class RoomController {
     }
 
     @GetMapping("/create")
-    public String createNewRoomForm(){
+    public String createNewRoomForm() {
         return "create";
     }
 
     @PostMapping("/create")
-    public String handleCreateNewRoom(String roomNumber, String bedsDescription ){
+    public String handleCreateNewRoom(String roomNumber, String bedsDescription) {
         this.roomService.createNewRoom(roomNumber, bedsDescription);
 
         return "redirect:rooms";
     }
 
     @GetMapping("/delete/{id}")
-    public String removeRoomById(@PathVariable("id") long id){
+    public String removeRoomById(@PathVariable("id") long id) {
         this.roomService.removeRoomById(id);
 
         return "redirect:/rooms";
     }
+
+    @GetMapping("/edit/{id}")
+    public String editRoomById(@PathVariable("id") long id, Model model) {
+
+        Room room = this.roomService.getRoomById(id);
+        model.addAttribute("room", room);
+
+
+        return "redirect:/rooms";
+    }
+
+
 
 }
