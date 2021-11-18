@@ -55,14 +55,14 @@ public class RoomControllerTest {
         String postContent = "roomNumber=107C&bedsDescription=2%2B1";
 
 
-        MockHttpServletRequestBuilder request = post("/createNewRoom")
+        MockHttpServletRequestBuilder request = post("/rooms/create")
                 .contentType(MediaType.valueOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
                 .content(postContent);
 
 
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("rooms"));
+                .andExpect(redirectedUrl("/rooms"));
 
 
 
@@ -73,7 +73,8 @@ public class RoomControllerTest {
 
     @Test
     public void handleDeleteTest() throws Exception {
-        MockHttpServletRequestBuilder request = get("/rooms/delete/21");
+        MockHttpServletRequestBuilder request =
+                get("/rooms/delete/21");
 
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection())

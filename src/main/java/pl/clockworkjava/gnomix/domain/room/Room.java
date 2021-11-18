@@ -13,12 +13,14 @@ import java.util.UUID;
 public class Room {
 
     private final long roomId;
-    private final String roomNumber;
-    private final List<BedType> beds;
-    private final Integer size;
+    private  String roomNumber;
+    private  List<BedType> beds;
+    private  Integer size;
 
 
     public Room(String roomNumber, List<BedType> beds) {
+
+        this.roomId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
 
         if (beds == null) {
             throw new IllegalArgumentException("Beds list cannot be null");
@@ -30,7 +32,6 @@ public class Room {
         this.beds = bedsField;
         this.size = this.beds.stream().mapToInt(BedType::getSize).sum();
 
-        this.roomId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
 
     }
 

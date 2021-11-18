@@ -31,7 +31,7 @@ public class RoomController {
     List<Room> rooms = new ArrayList<>();
 
 
-    @GetMapping()
+    @GetMapping
     public String getAllRooms(Model model) {
 //    rooms.add(room);
         model.addAttribute("rooms", this.roomService.findAllRooms());
@@ -63,7 +63,7 @@ public class RoomController {
         Room room = this.roomService.getRoomById(id);
         model.addAttribute("room", room);
 
-
+//return  "editRoom";
         return "redirect:/rooms";
     }
 
