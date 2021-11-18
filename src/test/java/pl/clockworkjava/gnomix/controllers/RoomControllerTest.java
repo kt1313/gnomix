@@ -71,4 +71,36 @@ public class RoomControllerTest {
                 .createNewRoom("107C", "2+1");
     }
 
+    @Test
+    public void handleDeleteTest() throws Exception {
+        MockHttpServletRequestBuilder request = get("/rooms/delete/21");
+
+        mockMvc.perform(request)
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/rooms"));
+
+        Mockito
+                .verify(roomService,Mockito.times(1))
+                .removeRoomById(21);
+
+    }
+
+    @Test
+    public void handleShowEditFormTest() throws Exception {
+        MockHttpServletRequestBuilder request = get("/rooms/delete/21");
+
+        Room room1 = new Room("10A", Arrays.asList( BedType.DOUBLE ));
+
+        Mockito.when(roomService.getRoomById(21)).thenReturn(room1);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("rooms"))
+                .andExpect(view().name("editRoom"));
+
+        Mockito
+                .verify(roomService,Mockito.times(1))
+                .getRoomById(21);
+    }
+
 }

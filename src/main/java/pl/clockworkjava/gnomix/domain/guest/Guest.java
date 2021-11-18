@@ -36,8 +36,6 @@ public class Guest {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
-
-
     }
 
     @Override
