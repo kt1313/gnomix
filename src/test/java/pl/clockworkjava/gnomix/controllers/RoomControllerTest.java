@@ -8,13 +8,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import pl.clockworkjava.gnomix.controllers.dto.GuestCreationDTO;
-import pl.clockworkjava.gnomix.domain.guest.Gender;
 import pl.clockworkjava.gnomix.domain.room.BedType;
 import pl.clockworkjava.gnomix.domain.room.Room;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
-
-import java.time.LocalDate;
 import java.util.Arrays;
 
 import static org.hamcrest.Matchers.containsString;
@@ -88,20 +84,45 @@ public class RoomControllerTest {
 
     @Test
     public void handleShowEditFormTest() throws Exception {
-        MockHttpServletRequestBuilder request = get("/rooms/delete/21");
+        MockHttpServletRequestBuilder request =
+                get("/rooms/delete/21");
 
-        Room room1 = new Room("10A", Arrays.asList( BedType.DOUBLE ));
+        Room room1 =
+                new Room("10A", Arrays.asList( BedType.DOUBLE, BedType.SINGLE ));
 
         Mockito.when(roomService.getRoomById(21)).thenReturn(room1);
 
         mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("rooms"))
+                .andExpect(model().attributeExists("room"))
+                .andExpect(model().attribute("bedsAsStr", "2+1"))
                 .andExpect(view().name("editRoom"));
 
         Mockito
                 .verify(roomService,Mockito.times(1))
                 .getRoomById(21);
+    }
+
+    @Test
+    public void handleUpdateTest() throws Exception {
+
+        String postContent = "id=21&roomNumber=107C&bedsDescription=2%2B1";
+
+
+        MockHttpServletRequestBuilder request = post("/rooms/edit")
+                .contentType(MediaType.valueOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
+                .content(postContent);
+
+
+        mockMvc.perform(request)
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/rooms"));
+
+
+
+        Mockito
+                .verify(roomService,Mockito.times(1))
+                .update(21,"107C", "2+1");
     }
 
 }

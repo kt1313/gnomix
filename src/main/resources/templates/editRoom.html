@@ -9,7 +9,8 @@
 <form th:action="@{/rooms/edit}" method="post">
     <input type="hidden" name="id" th:value="${room.roomId}">
     <p>Numer pokoju: <input type="text" name="roomNumber" th:value="${room.roomNumber}" required/></p>
-    <p>Rozklad Lóżek: <select name="bedsDescription" th:value="${room.bedsDescription}" required>
+    <p>Rozklad Lóżek:
+        <select name="bedsDescription" th:value="${bedsAsStr}" required>
         <option value="1">Pojedyncze</option>
         <option value="2">Podwójne</option>
         <option value="1+1">Dwa pojedyncze</option>

@@ -34,7 +34,14 @@ public class RoomTest {
 
         Room r = new Room("102", Arrays.asList(BedType.DOUBLE, BedType.SINGLE));
         assertEquals(3, r.getSize());
+    }
 
+    @Test
+    public void bedsAsStrTest(){
+
+        Room r = new Room("102", Arrays.asList(BedType.DOUBLE, BedType.SINGLE));
+        String result=r.getBedsAsStr();
+        assertEquals("2+1", result);
     }
 
 

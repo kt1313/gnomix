@@ -29,22 +29,9 @@ public class RoomService {
     }
 
     public Room createNewRoom(String roomNumber, String bedsDescription) {
-        String[] splitedBedsDescription = bedsDescription.split("\\+");
-        List<BedType> beds = Arrays.stream(splitedBedsDescription)
-                .map(stringToBedTypeMapping)
-                .collect(Collectors.toList());
+        List<BedType> beds = getBedTypesList(bedsDescription);
         return this.repository.createNewRoom(roomNumber, beds);
     }
-
-    private final Function<String, BedType> stringToBedTypeMapping = value -> {
-        if ("1".equals(value)) {
-            return BedType.SINGLE;
-        } else if ("2".equals(value)) {
-            return BedType.DOUBLE;
-        } else {
-            throw new IllegalArgumentException();
-        }
-    };
 
     public void removeRoomById(long id){
 
@@ -57,4 +44,25 @@ public class RoomService {
     }
 
 
+    public void update(long id, String roomNumber, String bedsDescription) {
+    Room roomToUpdate=this.repository.getRoomId(id);
+        List<BedType> beds = getBedTypesList(bedsDescription);
+        roomToUpdate.update(roomNumber, beds);
+    }
+
+    private List<BedType> getBedTypesList(String bedsDescription) {
+        String[] splitedBedsDescription = bedsDescription.split("\\+");
+        return Arrays.stream(splitedBedsDescription)
+                .map(stringToBedTypeMapping)
+                .collect(Collectors.toList());
+    }
+    private final Function<String, BedType> stringToBedTypeMapping = value -> {
+        if ("1".equals(value)) {
+            return BedType.SINGLE;
+        } else if ("2".equals(value)) {
+            return BedType.DOUBLE;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    };
 }

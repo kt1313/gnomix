@@ -47,7 +47,7 @@ public class RoomController {
     public String handleCreateNewRoom(String roomNumber, String bedsDescription) {
         this.roomService.createNewRoom(roomNumber, bedsDescription);
 
-        return "redirect:rooms";
+        return "redirect:/rooms";
     }
 
     @GetMapping("/delete/{id}")
@@ -62,11 +62,16 @@ public class RoomController {
 
         Room room = this.roomService.getRoomById(id);
         model.addAttribute("room", room);
+        model.addAttribute("bedsAsStr", room.getBedsAsStr());
 
-//return  "editRoom";
-        return "redirect:/rooms";
+return  "editRoom";
+//        return "redirect:/rooms";
     }
 
-
+    @PostMapping("/edit")
+    public String editGuest(long id, String roomNumber, String bedsDescription){
+        this.roomService.update(id, roomNumber, bedsDescription);
+        return "redirect:/rooms";
+    }
 
 }
