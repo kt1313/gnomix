@@ -1,9 +1,6 @@
 package pl.clockworkjava.gnomix.domain.room;
 
 import lombok.Data;
-import pl.clockworkjava.gnomix.domain.guest.Gender;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

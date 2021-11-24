@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.clockworkjava.gnomix.controllers.dto.GuestCreationDTO;
-import pl.clockworkjava.gnomix.controllers.dto.GuestUpdateDTO;
-import pl.clockworkjava.gnomix.domain.guest.GuestService;
 import pl.clockworkjava.gnomix.domain.room.Room;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
 
@@ -65,11 +62,10 @@ public class RoomController {
         model.addAttribute("bedsAsStr", room.getBedsAsStr());
 
 return  "editRoom";
-//        return "redirect:/rooms";
     }
 
     @PostMapping("/edit")
-    public String editGuest(long id, String roomNumber, String bedsDescription){
+    public String editRoom(long id, String roomNumber, String bedsDescription){
         this.roomService.update(id, roomNumber, bedsDescription);
         return "redirect:/rooms";
     }

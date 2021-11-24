@@ -85,7 +85,7 @@ public class RoomControllerTest {
     @Test
     public void handleShowEditFormTest() throws Exception {
         MockHttpServletRequestBuilder request =
-                get("/rooms/delete/21");
+                get("/rooms/edit/21");
 
         Room room1 =
                 new Room("10A", Arrays.asList( BedType.DOUBLE, BedType.SINGLE ));
