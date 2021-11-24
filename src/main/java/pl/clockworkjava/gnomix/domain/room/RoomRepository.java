@@ -19,7 +19,7 @@ public class RoomRepository {
         Room room1 = new Room("10A", Arrays.asList(BedType.SINGLE));
         Room room2 = new Room("103", Arrays.asList(BedType.DOUBLE));
         this.rooms.add(room1);
-        this.rooms.add(room1);
+        this.rooms.add(room2);
 
 
     }

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Data
 public class Room {
 
-    private final long roomId;
+    private  long roomId;
     private String roomNumber;
     private List<BedType> beds;
     private Integer size;
