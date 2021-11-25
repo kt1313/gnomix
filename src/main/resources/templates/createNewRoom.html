@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" >
 
 </head>
+
 <body>
-<h2>Dodaj pokój</h2>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Gnomix - Panel Zarządzania.</a>
 
@@ -23,15 +23,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="/rooms">Pokoje</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/reservations">Rezerwacje</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/reservations/create/stepone">Utwórz rezerwacje</a>
-            </li>
         </ul>
     </div>
 </nav>
+
+<div class="p-3 text-center bg-light"><h2 class="mb-3">Dodaj nowy pokój</h2>
+</div>
+
+<div class="container">
+
 <form th:action="@{/rooms/create}" method="post">
     <input type="hidden" name="id" />
     <p>Numer pokoju: <input type="text" name="roomNumber"  required/></p>
@@ -49,5 +49,6 @@
     <p><input type="submit" name="Submit"/></p>
 
 </form>
+</div>
 </body>
 </html>

@@ -3,12 +3,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Edytuj pokój</title>
-    <script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"> </script>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" >
+    <script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css">
 
 </head>
 <body>
-<h2>Edytuj pokój</h2>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Gnomix - Panel Zarządzania.</a>
 
@@ -23,29 +22,30 @@
             <li class="nav-item">
                 <a class="nav-link" href="/rooms">Pokoje</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/reservations">Rezerwacje</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/reservations/create/stepone">Utwórz rezerwacje</a>
-            </li>
         </ul>
     </div>
 </nav>
-<form th:action="@{/rooms/edit}" method="post">
-    <input type="hidden" name="id" th:value="${room.roomId}">
-    <p>Numer pokoju: <input type="text" name="roomNumber" th:value="${room.roomNumber}" required/></p>
-    <p>Rozklad Lóżek:
-        <select name="bedsDescription" th:value="${bedsAsStr}" required>
-        <option value="1">Pojedyncze</option>
-        <option value="2">Podwójne</option>
-        <option value="1+1">Dwa pojedyncze</option>
-        <option value="2+1">Podwójne plus pojedyncze</option>
-        <option value="2+2">Podwójne plus podwójne</option>
-        <option value="2+1+1">Podwójne plus dwa pojedyncze</option>
-    </select>
-    </p>
-    <p><input type="submit" name="Submit"/></p>
-</form>
+
+<div class="p-3 text-center bg-light"><h2 class="mb-3">Edytuj pokój</h2>
+</div>
+
+<div class="container">
+
+    <form th:action="@{/rooms/edit}" method="post">
+        <input type="hidden" name="id" th:value="${room.roomId}">
+        <p>Numer pokoju: <input type="text" name="roomNumber" th:value="${room.roomNumber}" required/></p>
+        <p>Rozklad Lóżek:
+            <select name="bedsDescription" th:value="${bedsAsStr}" required>
+                <option value="1">Pojedyncze</option>
+                <option value="2">Podwójne</option>
+                <option value="1+1">Dwa pojedyncze</option>
+                <option value="2+1">Podwójne plus pojedyncze</option>
+                <option value="2+2">Podwójne plus podwójne</option>
+                <option value="2+1+1">Podwójne plus dwa pojedyncze</option>
+            </select>
+        </p>
+        <p><input type="submit" name="Submit"/></p>
+    </form>
+</div>
 </body>
 </html>
