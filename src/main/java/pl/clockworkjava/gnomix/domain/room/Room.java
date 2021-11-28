@@ -1,6 +1,8 @@
 package pl.clockworkjava.gnomix.domain.room;
 
 import lombok.Data;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,17 +11,20 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Data
+@Entity
 public class Room {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private  long roomId;
     private String roomNumber;
+
+    @ElementCollection(targetClass = BedType.class)
     private List<BedType> beds;
+
     private Integer size;
 
-
     public Room(String roomNumber, List<BedType> beds) {
-
-        this.roomId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
 
         if (beds == null) {
             throw new IllegalArgumentException("Beds list cannot be null");
@@ -30,9 +35,9 @@ public class Room {
         Collections.copy(bedsField, beds);
         this.beds = bedsField;
         this.size = this.beds.stream().mapToInt(BedType::getSize).sum();
-
-
     }
+
+    public Room(){}
 
     public String getBedsAsStr() {
 
