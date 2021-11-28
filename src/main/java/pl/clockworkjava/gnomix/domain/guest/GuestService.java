@@ -3,6 +3,7 @@ package pl.clockworkjava.gnomix.domain.guest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.clockworkjava.gnomix.controllers.dto.GuestCreationDTO;
 import pl.clockworkjava.gnomix.controllers.dto.GuestUpdateDTO;
 
@@ -24,19 +25,16 @@ public class GuestService {
     }
 
     public void createNewGuest(GuestCreationDTO guestDTO) {
-
         this.repository.createNewGuest(guestDTO.getFirstName(), guestDTO.getLastName(), guestDTO.getDateOfBirth(), guestDTO.getGender());
-
     }
 
     public void removeById(long id) {
         this.repository.removeById(id);
     }
 
-    public Guest getGuestById(long id) {
-        return this.repository.getGuestById(id);
 
-    }
+    public Guest getGuestById(long id) {
+        return this.repository.getGuestById(id);}
 
     public void update(GuestUpdateDTO updatedGuest) {
         Guest byId = this.repository.getGuestById(updatedGuest.getId());
@@ -45,6 +43,6 @@ public class GuestService {
                 updatedGuest.getLastName(),
                 updatedGuest.getDateOfBirth(),
                 updatedGuest.getGender());
-
+        this.repository.update(byId);
     }
 }
