@@ -25,30 +25,33 @@ public class RoomService {
     }
 
     public List<Room> findAllRooms() {
-        return this.repository.findAllRooms();
+        return this.repository.findAll();
     }
 
     public Room createNewRoom(String roomNumber, String bedsDescription) {
         List<BedType> beds = getBedTypesList(bedsDescription);
-        return this.repository.createNewRoom(roomNumber, beds);
+
+       Room newOne= new Room(roomNumber,beds);
+
+        return this.repository.save(newOne);
     }
 
     public void removeRoomById(long id){
 
-        this.repository.removeRoomById(id);
+        this.repository.deleteById(id);
     }
 
     public Room getRoomById(long id) {
-      return   this.repository.getRoomId(id);
+      return   this.repository.getById(id);
 
     }
 
 
     public void update(long id, String roomNumber, String bedsDescription) {
-    Room roomToUpdate=this.repository.getRoomId(id);
+    Room roomToUpdate=this.repository.getById(id);
         List<BedType> beds = getBedTypesList(bedsDescription);
         roomToUpdate.update(roomNumber, beds);
-        this.repository.update(roomToUpdate);
+        this.repository.save(roomToUpdate);
     }
 
     private List<BedType> getBedTypesList(String bedsDescription) {

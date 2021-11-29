@@ -21,28 +21,30 @@ public class GuestService {
     }
 
     public List<Guest> findAllGuests() {
-        return this.repository.findAllGuests();
+        return this.repository.findAll();
     }
 
     public void createNewGuest(GuestCreationDTO guestDTO) {
-        this.repository.createNewGuest(guestDTO.getFirstName(), guestDTO.getLastName(), guestDTO.getDateOfBirth(), guestDTO.getGender());
+
+        Guest newOne=new Guest(guestDTO.getFirstName(), guestDTO.getLastName(), guestDTO.getDateOfBirth(), guestDTO.getGender());
+        this.repository.save(newOne);
     }
 
     public void removeById(long id) {
-        this.repository.removeById(id);
+        this.repository.deleteById(id);
     }
 
 
     public Guest getGuestById(long id) {
-        return this.repository.getGuestById(id);}
+        return this.repository.getById(id);}
 
     public void update(GuestUpdateDTO updatedGuest) {
-        Guest byId = this.repository.getGuestById(updatedGuest.getId());
+        Guest byId = this.repository.getById(updatedGuest.getId());
         byId.update(
                 updatedGuest.getFirstName(),
                 updatedGuest.getLastName(),
                 updatedGuest.getDateOfBirth(),
                 updatedGuest.getGender());
-        this.repository.update(byId);
+        this.repository.save(byId);
     }
 }
