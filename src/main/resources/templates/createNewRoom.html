@@ -33,20 +33,28 @@
 <div class="container">
 
 <form th:action="@{/rooms/create}" method="post">
+    <div class="form-group">
+
     <input type="hidden" name="id" />
-    <p>Numer pokoju: <input type="text" name="roomNumber"  required/></p>
-    <p>Rozklad Lóżek: <select name="bedsDescription" required>
+        <label for="createnewroomnumber">Numer pokoju: </label>
+        <input type="text" name="roomNumber"  required
+               class="form-control" id="createnewroomnumber"/></div>
+
+    <div class="form-group">
+        <label for="createnewroombeds">Rozklad Lóżek: </label>
+        <select name="bedsDescription" class="form-control"
+        id="createnewroombeds">
         <option value="1">Pojedyncze</option>
         <option value="2">Podwójne</option>
         <option value="1+1">Dwa pojedyncze</option>
         <option value="2+1">Podwójne plus pojedyncze</option>
         <option value="2+2">Podwójne plus podwójne</option>
         <option value="2+1+1">Podwójne plus dwa pojedyncze</option>
+        </select>
+    </div>
 
+    <input type="submit" class="btn-primary" value="Uwórz pokój"/>
 
-    </select>
-    </p>
-    <p><input type="submit" name="Submit"/></p>
 
 </form>
 </div>

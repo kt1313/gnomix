@@ -57,7 +57,8 @@ public class RoomService {
                 .map(stringToBedTypeMapping)
                 .collect(Collectors.toList());
     }
-    private final Function<String, BedType> stringToBedTypeMapping = value -> {
+    private final Function<String, BedType> stringToBedTypeMapping
+            = value -> {
         if ("1".equals(value)) {
             return BedType.SINGLE;
         } else if ("2".equals(value)) {

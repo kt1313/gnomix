@@ -37,7 +37,7 @@ public class RoomController {
 
     @GetMapping("/create")
     public String createNewRoomForm() {
-        return "create";
+        return "createNewRoom";
     }
 
     @PostMapping("/create")

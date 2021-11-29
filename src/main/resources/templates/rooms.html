@@ -33,10 +33,11 @@
 </div>
 
 <div class="container">
-<table class="table table-striped">
+    <a class="nav-link" href="/rooms/create">Utwórz nowy pokój</a>
+    <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
-        <th>Numer Id</th>
+<!--        <th>Numer Id</th>-->
         <th>Numer pokoju</th>
         <th>Wielkość</th>
         <th> </th>
@@ -45,7 +46,7 @@
     </thead>
     <tbody>
     <tr th:each="room :${rooms}">
-        <td th:text="${room.roomId}"/>
+<!--        <td th:text="${room.roomId}"/>-->
         <td th:text="${room.roomNumber}"/>
         <td th:text="${room.size}"/>
         <td>
