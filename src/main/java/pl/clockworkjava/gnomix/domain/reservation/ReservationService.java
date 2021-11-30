@@ -13,25 +13,24 @@ import java.util.List;
 public class ReservationService {
 
 
-
     private ReservationRepository reservationRepository;
-private RoomService roomService;
+    private RoomService roomService;
 
-@Autowired
+    @Autowired
     public ReservationService(
             ReservationRepository reservationRepository,
-            RoomService roomService){
-    this.reservationRepository=reservationRepository;
-    this.roomService=roomService;
-}
+            RoomService roomService) {
+        this.reservationRepository = reservationRepository;
+        this.roomService = roomService;
+    }
 
 
     public List<Reservation> getAll() {
 
-return this.reservationRepository.findAll();
-}
+        return this.reservationRepository.findAll();
+    }
 
     public List<Room> getAvailableRooms(LocalDate from, LocalDate to, int size) {
-            return this.roomService.findAllRooms();
+        return this.roomService.findAllRooms();
     }
 }

@@ -32,7 +32,10 @@ public class ReservationController {
 
         return "reservations";
     }
-
+    @GetMapping("/create/stepone")
+    public String beginCreationWizard() {
+        return "reservationStepOne";
+    }
 
     @PostMapping("/create/steptwo")
     public String creationWizardStepTwo(
