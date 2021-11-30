@@ -3,7 +3,10 @@ package pl.clockworkjava.gnomix.domain.reservation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.clockworkjava.gnomix.domain.room.Room;
+import pl.clockworkjava.gnomix.domain.room.RoomService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -12,10 +15,14 @@ public class ReservationService {
 
 
     private ReservationRepository reservationRepository;
+private RoomService roomService;
 
 @Autowired
-    public ReservationService(ReservationRepository reservationRepository){
+    public ReservationService(
+            ReservationRepository reservationRepository,
+            RoomService roomService){
     this.reservationRepository=reservationRepository;
+    this.roomService=roomService;
 }
 
 
@@ -23,4 +30,8 @@ public class ReservationService {
 
 return this.reservationRepository.findAll();
 }
+
+    public List<Room> getAvailableRooms(LocalDate from, LocalDate to, int size) {
+            return this.roomService.findAllRooms();
+    }
 }
