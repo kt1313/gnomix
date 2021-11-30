@@ -40,7 +40,7 @@ public class Room {
         updateBeds();
     }
 
-    public Room(){}
+    Room(){}
 
     public String getBedsAsStr() {
 

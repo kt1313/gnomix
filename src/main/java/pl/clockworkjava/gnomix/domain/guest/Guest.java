@@ -37,7 +37,7 @@ public class Guest {
         this.gender = gender;
     }
 
-    public Guest() {
+    Guest() {
 
     }
 
