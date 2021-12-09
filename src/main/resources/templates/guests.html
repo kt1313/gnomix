@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-                      xmlns:th="http:/>/www.thymeleaf.org"
+      xmlns:th="http:/>/www.thymeleaf.org"
 >
 <head>
     <meta charset="UTF-8">
     <title>Gnomix - goście</title>
-    <script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"> </script>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" >
+    <script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css">
 
 </head>
 <body>
@@ -40,34 +40,34 @@
 </div>
 
 <div class="container">
-<!--<p th:text="${guest}"/>-->
+    <!--<p th:text="${guest}"/>-->
     <a class="nav-link" href="/guests/create">Utwórz nowego gościa</a>
-<table class="table table-striped">
-    <thead class="thead-dark">
-    <tr>
-        <th>Imię</th>
-    <th>Nazwisko</th>
-    <th>Data urodzenia</th>
-    <th>Płeć</th>
-        <th> </th>
-        <th> </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="guest : ${guests}">
-        <td th:text="${guest.firstName}"/>
-        <td th:text="${guest.lastName}"/>
-        <td th:text="${guest.birthDate}"/>
-        <td th:text="${guest.gender}"/>
-        <td>
-        <a th:href="@{/guests/delete/{id}(id=${guest.id})}">Usuń</a>
-    </td>
-        <td>
-            <a th:href="@{/guests/edit/{id}(id=${guest.id})}">Edytuj</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Data urodzenia</th>
+            <th>Płeć</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="guest : ${guests}">
+            <td th:text="${guest.firstName}"/>
+            <td th:text="${guest.lastName}"/>
+            <td th:text="${guest.birthDate}"/>
+            <td th:text="${guest.gender}"/>
+            <td>
+                <a th:href="@{/guests/delete/{id}(id=${guest.id})}">Usuń</a>
+            </td>
+            <td>
+                <a th:href="@{/guests/edit/{id}(id=${guest.id})}">Edytuj</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
