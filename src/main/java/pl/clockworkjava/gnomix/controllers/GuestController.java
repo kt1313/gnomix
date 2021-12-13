@@ -42,10 +42,10 @@ public class GuestController {
         System.out.println(guestDTO);
         if (result.hasErrors()){
             model.addAttribute("errors", result.getAllErrors());
-            return "playerform";
+            return "createNewGuest";
         }else {
             this.guestService.createNewGuest(guestDTO);
-            return "redirect:/guest";}
+            return "redirect:/guests";}
     }
 
     @GetMapping("/delete/{id}")
