@@ -45,7 +45,7 @@ public class GuestController {
             return "playerform";
         }else {
             this.guestService.createNewGuest(guestDTO);
-            return "redirect:/guest";
+            return "redirect:/guest";}
     }
 
     @GetMapping("/delete/{id}")

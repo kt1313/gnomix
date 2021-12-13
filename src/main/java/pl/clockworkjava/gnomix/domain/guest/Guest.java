@@ -26,15 +26,18 @@ public class Guest {
     private  String lastName;
     private  LocalDate birthDate;
     private  Gender gender;
+    private boolean confirmed;
 
 
     public Guest( String firstName,
                  String lastName, LocalDate birthDate,
-                 Gender gender) {
+                 Gender gender, boolean confirmed) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
+        this.confirmed=confirmed;
+
     }
 
     public Guest() {
@@ -43,11 +46,12 @@ public class Guest {
 
     public void update(String firstName,
                        String lastName, LocalDate birthDate,
-                       Gender gender){
+                       Gender gender, boolean confirmed){
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
+        this.confirmed=confirmed;
     }
 
     @Override
@@ -55,6 +59,6 @@ public class Guest {
         return "Imię: " + firstName +
                 ", Nazwisko: " + lastName  +
                 ", Data urodzenia: " + birthDate +
-                ", Płeć: " + gender ;
+                ", Płeć: " + gender+", Potwierdzony: "+confirmed ;
     }
 }

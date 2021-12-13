@@ -26,7 +26,8 @@ public class GuestService {
 
     public void createNewGuest(GuestCreationDTO guestDTO) {
 
-        Guest newOne=new Guest(guestDTO.getFirstName(), guestDTO.getLastName(), guestDTO.getDateOfBirth(), guestDTO.getGender());
+        Guest newOne=new Guest(guestDTO.getFirstName(), guestDTO.getLastName()
+                , guestDTO.getDateOfBirth(), guestDTO.getGender(), guestDTO.isConfirmed());
         this.repository.save(newOne);
     }
 
@@ -44,7 +45,8 @@ public class GuestService {
                 updatedGuest.getFirstName(),
                 updatedGuest.getLastName(),
                 updatedGuest.getDateOfBirth(),
-                updatedGuest.getGender());
+                updatedGuest.getGender(),
+                updatedGuest.isConfirmed());
         this.repository.save(byId);
     }
 }

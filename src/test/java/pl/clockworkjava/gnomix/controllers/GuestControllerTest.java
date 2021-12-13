@@ -39,7 +39,7 @@ public class GuestControllerTest {
     @Test
     public void basic() throws Exception {
 
-        Guest guest = new Guest("Pawel", "Cwik", LocalDate.of(1986, 11, 13), MALE);
+        Guest guest = new Guest("Pawel", "Cwik", LocalDate.of(1986, 11, 13), MALE, true);
 
         Mockito.when(guestService.findAllGuests()).thenReturn(Arrays.asList(guest));
 
@@ -66,7 +66,8 @@ public class GuestControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/guests"));
 
-        GuestCreationDTO dto=new GuestCreationDTO("Tom","Klimkiewicz", LocalDate.parse("2021-11-01"), Gender.MALE);
+        GuestCreationDTO dto=new GuestCreationDTO("Tom","Klimkiewicz"
+                , LocalDate.parse("2021-11-01"), Gender.MALE, true);
 
 
         Mockito
@@ -102,7 +103,7 @@ public class GuestControllerTest {
                 ("Tomasz",
                 "Klimkiewicz",
                         LocalDate.of(1976,5,8),
-                        MALE);
+                        MALE, true);
 
         Mockito.when(guestService.getGuestById(21)).thenReturn(guest);
 
