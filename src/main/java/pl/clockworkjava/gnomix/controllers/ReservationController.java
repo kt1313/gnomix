@@ -12,6 +12,7 @@ import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 import pl.clockworkjava.gnomix.domain.room.Room;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,6 +33,7 @@ public class ReservationController {
 
         return "reservations";
     }
+
     @GetMapping("/create/stepone")
     public String beginCreationWizard() {
         return "reservationStepOne";
@@ -43,11 +45,24 @@ public class ReservationController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
             int size, Model model) {
 
-        List<Room> rooms=this.reservationService.getAvailableRooms(fromDate, toDate,size);
-        model.addAttribute("rooms", rooms);
-        model.addAttribute("fromDate", fromDate);
-        model.addAttribute("toDate", toDate);
+        List<String> errors = new ArrayList<>();
+        if (size < 0 || size > 10) {
+            errors.add("Nieprawidłowa ilość osób, max. 10 osób");
+        }
+        if (fromDate.equals(toDate) || toDate.isBefore(fromDate)) {
+            errors.add("Nieprawidłowe daty rezerwacji");
+        }
 
-        return "reservationStepTwo";
+        if (errors.isEmpty()) {
+            List<Room> rooms = this.reservationService.getAvailableRooms(fromDate, toDate, size);
+            model.addAttribute("rooms", rooms);
+            model.addAttribute("fromDate", fromDate);
+            model.addAttribute("toDate", toDate);
+
+            return "reservationStepTwo";
+        } else {
+            model.addAttribute("errors", errors);
+            return "reservationStepOne";
+        }
     }
 }

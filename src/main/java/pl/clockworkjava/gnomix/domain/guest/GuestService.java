@@ -26,8 +26,10 @@ public class GuestService {
 
     public void createNewGuest(GuestCreationDTO guestDTO) {
 
-        Guest newOne=new Guest(guestDTO.getFirstName(), guestDTO.getLastName()
-                , guestDTO.getDateOfBirth(), guestDTO.getGender(), guestDTO.isConfirmed());
+        Guest newOne=new Guest(guestDTO.getFirstName()
+                , guestDTO.getLastName()
+                , guestDTO.getDateOfBirth(), guestDTO.getGender()
+                , guestDTO.isConfirmed());
         this.repository.save(newOne);
     }
 
