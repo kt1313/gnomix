@@ -43,7 +43,9 @@ public class ReservationController {
     public String creationWizardStepTwo(
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
-            int size, Model model) {
+            int size,
+//            String email,
+            Model model) {
 
         List<String> errors = new ArrayList<>();
         if (size < 0 || size > 10) {
@@ -58,6 +60,7 @@ public class ReservationController {
             model.addAttribute("rooms", rooms);
             model.addAttribute("fromDate", fromDate);
             model.addAttribute("toDate", toDate);
+//            model.addAttribute("email",email);
 
             return "reservationStepTwo";
         } else {
