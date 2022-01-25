@@ -30,11 +30,12 @@ public class ReservationControllerTest {
     @Test
     public void handleReservationCreationStepTwoValidPost() throws Exception {
 
-        String postContent = "fromDate=2022-03-12&toDate=2022-03-13&size=2";
+        String postContent = "fromDate=2022-03-12&toDate=2022-03-13&size=2&email=pawel@clockwork";
 
         LocalDate fromDate = LocalDate.parse("2022-03-12");
         LocalDate toDate = LocalDate.parse("2022-03-13");
         int size = 2;
+        String email="pawel@clockwork";
 
 
         MockHttpServletRequestBuilder request = post("/reservations/create/steptwo")
@@ -44,7 +45,9 @@ public class ReservationControllerTest {
         mockMvc.perform(request)
                 .andExpect(view().name("reservationStepTwo"))
                 .andExpect(model().attribute("fromDate", fromDate))
-                .andExpect(model().attribute("toDate", toDate));
+                .andExpect(model().attribute("toDate", toDate))
+                .andExpect(model().attribute("email", email));
+
 
 
         Mockito.verify(reservationService, Mockito.times(1))
@@ -69,7 +72,7 @@ public class ReservationControllerTest {
                 .andExpect(model().attributeExists("errors"));
 
 
-        Mockito.verify(reservationService, Mockito.times(1))
+        Mockito.verify(reservationService, Mockito.times(0))
                 .getAvailableRooms(fromDate, toDate, size);
     }
     @Test

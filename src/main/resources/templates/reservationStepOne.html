@@ -58,11 +58,11 @@
                    class="form-control" id="newreservationsize"/>
         </div>
 
-<!--        <div class="form-group">-->
-<!--            <label for="newreservationemail">Twój email: </label>-->
-<!--            <input type="email" name="email" required-->
-<!--                   class="form-control" id="newreservationemail"/>-->
-<!--        </div>-->
+        <div class="form-group">
+            <label for="newreservationemail">Twój email: </label>
+            <input type="email" name="email" required
+                   class="form-control" id="newreservationemail"/>
+        </div>
         <input type="submit" class="btn-primary" value="Utwórz rezerwację"/>
         <div th:if="${not #lists.isEmpty(errors)}">
             <h3>Błąd przy tworzeniu rezerwacji</h3>

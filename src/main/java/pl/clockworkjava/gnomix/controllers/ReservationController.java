@@ -44,7 +44,7 @@ public class ReservationController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
             int size,
-//            String email,
+            String email,
             Model model) {
 
         List<String> errors = new ArrayList<>();
@@ -60,7 +60,7 @@ public class ReservationController {
             model.addAttribute("rooms", rooms);
             model.addAttribute("fromDate", fromDate);
             model.addAttribute("toDate", toDate);
-//            model.addAttribute("email",email);
+            model.addAttribute("email",email);
 
             return "reservationStepTwo";
         } else {
