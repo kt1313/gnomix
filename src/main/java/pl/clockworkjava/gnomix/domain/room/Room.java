@@ -1,8 +1,10 @@
 package pl.clockworkjava.gnomix.domain.room;
 
 import lombok.Data;
+import pl.clockworkjava.gnomix.domain.reservation.Reservation;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -79,4 +81,6 @@ public class Room {
     public String toString() {
         return "Pokoj oznaczony jako:  " + roomNumber;
     }
+
+
 }

@@ -7,6 +7,7 @@ import pl.clockworkjava.gnomix.controllers.dto.GuestUpdateDTO;
 import pl.clockworkjava.gnomix.domain.guest.Guest;
 import pl.clockworkjava.gnomix.domain.guest.GuestRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,24 +32,24 @@ public class RoomService {
     public Room createNewRoom(String roomNumber, String bedsDescription) {
         List<BedType> beds = getBedTypesList(bedsDescription);
 
-       Room newOne= new Room(roomNumber,beds);
+        Room newOne = new Room(roomNumber, beds);
 
         return this.repository.save(newOne);
     }
 
-    public void removeRoomById(long id){
+    public void removeRoomById(long id) {
 
         this.repository.deleteById(id);
     }
 
     public Room getRoomById(long id) {
-      return   this.repository.getById(id);
+        return this.repository.getById(id);
 
     }
 
 
     public void update(long id, String roomNumber, String bedsDescription) {
-    Room roomToUpdate=this.repository.getById(id);
+        Room roomToUpdate = this.repository.getById(id);
         List<BedType> beds = getBedTypesList(bedsDescription);
         roomToUpdate.update(roomNumber, beds);
         this.repository.save(roomToUpdate);
@@ -60,6 +61,7 @@ public class RoomService {
                 .map(stringToBedTypeMapping)
                 .collect(Collectors.toList());
     }
+
     private final Function<String, BedType> stringToBedTypeMapping
             = value -> {
         if ("1".equals(value)) {
@@ -70,4 +72,14 @@ public class RoomService {
             throw new IllegalArgumentException();
         }
     };
+
+    public List<Room> getRoomsForSize(int size) {
+        if (size <= 0) {
+            return new ArrayList<>();
+        }
+        return this.repository.findAll()
+                .stream().filter(room -> room.getSize() >= size)
+                .collect(Collectors.toList());
+
+    }
 }
