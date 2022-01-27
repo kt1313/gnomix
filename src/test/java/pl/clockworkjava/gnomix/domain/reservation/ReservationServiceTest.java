@@ -90,12 +90,12 @@ public class ReservationServiceTest {
         LocalDate fromOne = LocalDate.parse("2022-01-08");
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
-        reservations.add(new Reservation(fromOne, toOne, null, null));
+        reservations.add(new Reservation(fromOne, toOne, new Room("1", new ArrayList<>()), null));
 
         LocalDate fromTwo = LocalDate.parse("2022-02-05");
         LocalDate toTwo = LocalDate.parse("2022-02-15");
 
-        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+        reservations.add(new Reservation(fromTwo, toTwo, new Room("1", new ArrayList<>()), null));
 
         LocalDate myStartDate = LocalDate.parse("2022-02-05");
 
@@ -118,12 +118,12 @@ public class ReservationServiceTest {
         LocalDate fromOne = LocalDate.parse("2022-01-08");
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
-        reservations.add(new Reservation(fromOne, toOne, null, null));
+        reservations.add(new Reservation(fromOne, toOne, null, new Room("1", new ArrayList<>())));
 
         LocalDate fromTwo = LocalDate.parse("2022-02-05");
         LocalDate toTwo = LocalDate.parse("2022-02-15");
 
-        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+        reservations.add(new Reservation(fromTwo, toTwo, null, new Room("1", new ArrayList<>())));
 
         LocalDate myStartDate = LocalDate.parse("2022-02-25");
 
@@ -146,12 +146,12 @@ public class ReservationServiceTest {
         LocalDate fromOne = LocalDate.parse("2022-01-08");
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
-        reservations.add(new Reservation(fromOne, toOne, null, null));
+        reservations.add(new Reservation(fromOne, toOne, null, new Room("1", new ArrayList<>())));
 
         LocalDate fromTwo = LocalDate.parse("2022-02-05");
         LocalDate toTwo = LocalDate.parse("2022-02-15");
 
-        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+        reservations.add(new Reservation(fromTwo, toTwo, null, new Room("1", new ArrayList<>())));
 
         LocalDate myStartDate = LocalDate.parse("2022-02-15");
 
@@ -176,12 +176,12 @@ public class ReservationServiceTest {
         LocalDate fromOne = LocalDate.parse("2022-01-08");
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
-        reservations.add(new Reservation(fromOne, toOne, null, null));
+        reservations.add(new Reservation(fromOne, toOne, null, new Room("1", new ArrayList<>())));
 
         LocalDate fromTwo = LocalDate.parse("2022-02-05");
         LocalDate toTwo = LocalDate.parse("2022-02-15");
 
-        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+        reservations.add(new Reservation(fromTwo, toTwo, null, new Room("1", new ArrayList<>())));
 
         LocalDate myStartDate = LocalDate.parse("2022-02-25");
 
@@ -204,12 +204,12 @@ public class ReservationServiceTest {
         LocalDate fromOne = LocalDate.parse("2022-01-08");
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
-        reservations.add(new Reservation(fromOne, toOne, null, null));
+        reservations.add(new Reservation(fromOne, toOne, null, new Room("1", new ArrayList<>())));
 
         LocalDate fromTwo = LocalDate.parse("2022-02-05");
         LocalDate toTwo = LocalDate.parse("2022-02-15");
 
-        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+        reservations.add(new Reservation(fromTwo, toTwo, null, new Room("1", new ArrayList<>())));
 
         LocalDate myStartDate = LocalDate.parse("2022-01-05");
         LocalDate myEndDate = LocalDate.parse("2022-01-10");
@@ -235,12 +235,12 @@ public class ReservationServiceTest {
         LocalDate fromOne = LocalDate.parse("2022-01-08");
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
-        reservations.add(new Reservation(fromOne, toOne, null, null));
+        reservations.add(new Reservation(fromOne, toOne, null, new Room("1", new ArrayList<>())));
 
         LocalDate fromTwo = LocalDate.parse("2022-02-05");
         LocalDate toTwo = LocalDate.parse("2022-02-15");
 
-        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+        reservations.add(new Reservation(fromTwo, toTwo, null, new Room("1", new ArrayList<>())));
 
         LocalDate myStartDate = LocalDate.parse("2022-02-25");
         LocalDate myEndDate = LocalDate.parse("2022-02-28");
@@ -265,12 +265,12 @@ public class ReservationServiceTest {
         LocalDate fromOne = LocalDate.parse("2022-01-08");
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
-        reservations.add(new Reservation(fromOne, toOne, null, null));
+        reservations.add(new Reservation(fromOne, toOne, null, new Room("1", new ArrayList<>())));
 
         LocalDate fromTwo = LocalDate.parse("2022-02-05");
         LocalDate toTwo = LocalDate.parse("2022-02-15");
 
-        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+        reservations.add(new Reservation(fromTwo, toTwo, null, new Room("1", new ArrayList<>())));
 
         LocalDate myStartDate = LocalDate.parse("2022-01-09");
         LocalDate myEndDate = LocalDate.parse("2022-01-12");
@@ -296,12 +296,12 @@ public class ReservationServiceTest {
         LocalDate fromOne = LocalDate.parse("2022-01-08");
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
-        reservations.add(new Reservation(fromOne, toOne, null, null));
+        reservations.add(new Reservation(fromOne, toOne, null, new Room("1", new ArrayList<>())));
 
         LocalDate fromTwo = LocalDate.parse("2022-02-05");
         LocalDate toTwo = LocalDate.parse("2022-02-15");
 
-        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+        reservations.add(new Reservation(fromTwo, toTwo, null, new Room("1", new ArrayList<>())));
 
         LocalDate myStartDate = LocalDate.parse("2022-02-25");
         LocalDate myEndDate = LocalDate.parse("2022-02-28");
@@ -326,12 +326,12 @@ public class ReservationServiceTest {
         LocalDate fromOne = LocalDate.parse("2022-01-08");
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
-        reservations.add(new Reservation(fromOne, toOne, null, null));
+        reservations.add(new Reservation(fromOne, toOne, null, new Room("1", new ArrayList<>())));
 
         LocalDate fromTwo = LocalDate.parse("2022-02-05");
         LocalDate toTwo = LocalDate.parse("2022-02-15");
 
-        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+        reservations.add(new Reservation(fromTwo, toTwo, null, new Room("1", new ArrayList<>())));
 
         LocalDate myStartDate = LocalDate.parse("2022-02-06");
         LocalDate myEndDate = LocalDate.parse("2022-02-10");
@@ -357,12 +357,12 @@ public class ReservationServiceTest {
         LocalDate fromOne = LocalDate.parse("2022-01-08");
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
-        reservations.add(new Reservation(fromOne, toOne, null, null));
+        reservations.add(new Reservation(fromOne, toOne, null, new Room("1", new ArrayList<>())));
 
         LocalDate fromTwo = LocalDate.parse("2022-02-05");
         LocalDate toTwo = LocalDate.parse("2022-02-15");
 
-        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+        reservations.add(new Reservation(fromTwo, toTwo, null, new Room("1", new ArrayList<>())));
 
         LocalDate myStartDate = LocalDate.parse("2022-02-25");
         LocalDate myEndDate = LocalDate.parse("2022-02-28");

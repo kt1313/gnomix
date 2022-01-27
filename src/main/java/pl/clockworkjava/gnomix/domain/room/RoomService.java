@@ -7,10 +7,7 @@ import pl.clockworkjava.gnomix.controllers.dto.GuestUpdateDTO;
 import pl.clockworkjava.gnomix.domain.guest.Guest;
 import pl.clockworkjava.gnomix.domain.guest.GuestRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -42,7 +39,7 @@ public class RoomService {
         this.repository.deleteById(id);
     }
 
-    public Room getRoomById(long id) {
+    public Room findById(long id) {
         return this.repository.getById(id);
 
     }
@@ -81,5 +78,9 @@ public class RoomService {
                 .stream().filter(room -> room.getSize() >= size)
                 .collect(Collectors.toList());
 
+    }
+
+    public Optional<Room> getRoomById(long roomId) {
+        return this.repository.findById(roomId);
     }
 }

@@ -36,31 +36,10 @@
     </div>
 </nav>
 
-<div class="p-3 text-center bg-light"><h2 class="mb-3">Lista rezerwacji</h2>
-</div>
-
-<div class="container"> <table class="table table-striped">
-        <thead class="thead-dark">
-        <tr>
-            <th>Od</th>
-            <th>Do</th>
-            <th>Pokój</th>
-            <th>Właściciel</th>
-            <th> </th>
-            <th> </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="reservation : ${reservations}">
-            <td th:text="${reservation.fromDate}"/>
-            <td th:text="${reservation.toDate}"/>
-            <td th:text="${reservation.room.roomNumber}"/>
-            <td th:text="|${reservation.owner?.firstName} ${reservation.owner?.lastName}|"/>
-
-
-        </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <h3> </h3>
+    <h2>Dziękujemy za złożenie rezerwacji</h2>
+    <h3>Kliknij na link wysłany na podany email, aby potwierdzić.</h3>
 </div>
 </body>
 </html>

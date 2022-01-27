@@ -12,6 +12,7 @@ import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 import pl.clockworkjava.gnomix.domain.room.Room;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,4 +69,15 @@ public class ReservationController {
             return "reservationStepOne";
         }
     }
+
+    @PostMapping("/create/stepthree")
+    public String finalizeReservation(long roomId,
+                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+                                      String email){
+
+        this.reservationService.createTemporaryReservation(roomId,fromDate, toDate, email);
+        return "reservationConfirmed";
+    }
+
 }

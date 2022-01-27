@@ -57,7 +57,7 @@ public class RoomController {
     @GetMapping("/edit/{id}")
     public String editRoomById(@PathVariable("id") long id, Model model) {
 
-        Room room = this.roomService.getRoomById(id);
+        Room room = this.roomService.findById(id);
         model.addAttribute("room", room);
         model.addAttribute("bedsAsStr", room.getBedsAsStr());
 

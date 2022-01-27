@@ -90,7 +90,7 @@ public class RoomControllerTest {
         Room room1 =
                 new Room("10A", Arrays.asList( BedType.DOUBLE, BedType.SINGLE ));
 
-        Mockito.when(roomService.getRoomById(21)).thenReturn(room1);
+        Mockito.when(roomService.findById(21)).thenReturn(room1);
 
         mockMvc.perform(request)
                 .andExpect(status().isOk())
@@ -100,7 +100,7 @@ public class RoomControllerTest {
 
         Mockito
                 .verify(roomService,Mockito.times(1))
-                .getRoomById(21);
+                .findById(21);
     }
 
     @Test
