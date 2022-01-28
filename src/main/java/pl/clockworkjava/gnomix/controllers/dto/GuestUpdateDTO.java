@@ -16,5 +16,5 @@ public class GuestUpdateDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private final LocalDate dateOfBirth;
     private final Gender gender;
-    private final boolean confirmed;
+    private final boolean vip;
 }

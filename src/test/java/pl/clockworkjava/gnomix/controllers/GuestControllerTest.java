@@ -66,8 +66,8 @@ public class GuestControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/guests"));
 
-        GuestCreationDTO dto=new GuestCreationDTO("Tom","Klimkiewicz"
-                , LocalDate.parse("2021-11-01"), Gender.MALE, true);
+        GuestCreationDTO dto=new GuestCreationDTO("Tomek","Klimkiewicz"
+                , LocalDate.parse("2021-11-01"), Gender.MALE,  "on");
 
 
         Mockito

@@ -26,10 +26,10 @@ public class GuestService {
 
     public void createNewGuest(GuestCreationDTO guestDTO) {
 
-        Guest newOne=new Guest(guestDTO.getFirstName()
+        Guest newOne = new Guest(guestDTO.getFirstName()
                 , guestDTO.getLastName()
                 , guestDTO.getDateOfBirth(), guestDTO.getGender()
-                , guestDTO.isConfirmed());
+                , guestDTO.isVip());
         this.repository.save(newOne);
     }
 
@@ -39,7 +39,8 @@ public class GuestService {
 
 
     public Guest getGuestById(long id) {
-        return this.repository.getById(id);}
+        return this.repository.getById(id);
+    }
 
     public void update(GuestUpdateDTO updatedGuest) {
         Guest byId = this.repository.getById(updatedGuest.getId());
@@ -48,7 +49,7 @@ public class GuestService {
                 updatedGuest.getLastName(),
                 updatedGuest.getDateOfBirth(),
                 updatedGuest.getGender(),
-                updatedGuest.isConfirmed());
+                updatedGuest.isVip());
         this.repository.save(byId);
     }
 }

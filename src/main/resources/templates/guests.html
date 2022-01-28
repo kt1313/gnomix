@@ -49,7 +49,8 @@
             <th>Nazwisko</th>
             <th>Data urodzenia</th>
             <th>Płeć</th>
-            <th>Confirmed</th>
+            <th>VIP</th>
+            <th></th>
             <th></th>
         </tr>
         </thead>
@@ -59,7 +60,7 @@
             <td th:text="${guest.lastName}"/>
             <td th:text="${guest.birthDate}"/>
             <td th:text="${guest.gender}"/>
-            <td th:text="${guest.confirmed}"/>
+            <td th:text="${guest.vip}"/>
             <td>
                 <a th:href="@{/guests/delete/{id}(id=${guest.id})}">Usuń</a>
             </td>

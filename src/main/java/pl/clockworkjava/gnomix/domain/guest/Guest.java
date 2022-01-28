@@ -27,16 +27,18 @@ public class Guest {
     private  LocalDate birthDate;
     private  Gender gender;
     private boolean confirmed;
+    private boolean vip;
 
 
     public Guest( String firstName,
                  String lastName, LocalDate birthDate,
-                 Gender gender, boolean confirmed) {
+                 Gender gender, boolean vip) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
-        this.confirmed=confirmed;
+//        this.confirmed=confirmed;
+        this.vip=vip;
 
     }
 
@@ -46,13 +48,24 @@ public class Guest {
 
     public void update(String firstName,
                        String lastName, LocalDate birthDate,
-                       Gender gender, boolean confirmed){
+                       Gender gender, boolean vip){
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
-        this.confirmed=confirmed;
+//        this.confirmed=confirmed;
+        this.vip=vip;
     }
+
+//    public Guest(String firstName, String lastName,
+//                 LocalDate birthDate, Gender gender,  boolean vip) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.birthDate = birthDate;
+//        this.gender = gender;
+////        this.confirmed = confirmed;
+//        this.vip = vip;
+//    }
 
     @Override
     public String toString() {
