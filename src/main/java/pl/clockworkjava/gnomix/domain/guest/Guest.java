@@ -26,7 +26,6 @@ public class Guest {
     private  String lastName;
     private  LocalDate birthDate;
     private  Gender gender;
-    private boolean confirmed;
     private boolean vip;
 
 
@@ -37,7 +36,6 @@ public class Guest {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
-//        this.confirmed=confirmed;
         this.vip=vip;
 
     }
@@ -53,25 +51,16 @@ public class Guest {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
-//        this.confirmed=confirmed;
         this.vip=vip;
     }
 
-//    public Guest(String firstName, String lastName,
-//                 LocalDate birthDate, Gender gender,  boolean vip) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.birthDate = birthDate;
-//        this.gender = gender;
-////        this.confirmed = confirmed;
-//        this.vip = vip;
-//    }
+
 
     @Override
     public String toString() {
         return "Imię: " + firstName +
                 ", Nazwisko: " + lastName  +
                 ", Data urodzenia: " + birthDate +
-                ", Płeć: " + gender+", Potwierdzony: "+confirmed ;
+                ", Płeć: " + gender+", VIP: "+vip ;
     }
 }

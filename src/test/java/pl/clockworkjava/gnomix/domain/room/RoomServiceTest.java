@@ -79,6 +79,7 @@ public class RoomServiceTest {
 
     @Test
     public void testGetRoomsForEqualSize() {
+
         //given
         List<Room> rooms = new ArrayList<>();
         rooms.add(new Room("101", Arrays.asList(BedType.DOUBLE)));
@@ -89,7 +90,7 @@ public class RoomServiceTest {
         Mockito.when(roomRepository.findAll()).thenReturn(rooms);
         RoomService roomService=new RoomService(roomRepository);
 
-//when
+        //when
         List<Room> result=roomService.getRoomsForSize(3);
 
         //then
@@ -108,7 +109,7 @@ public class RoomServiceTest {
         Mockito.when(roomRepository.findAll()).thenReturn(rooms);
         RoomService roomService=new RoomService(roomRepository);
 
-//when
+        //when
         List<Room> result=roomService.getRoomsForSize(-1);
 
         //then
