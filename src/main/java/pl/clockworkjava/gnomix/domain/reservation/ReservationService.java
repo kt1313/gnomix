@@ -113,7 +113,7 @@ public class ReservationService {
             Reservation tmp=new Reservation(fromDate, toDate, r, email);
             this.repository.save(tmp);
 
-            TempReservationCreatedEvent event=new TempReservationCreatedEvent(email, r.getRoomId());
+            TempReservationCreatedEvent event=new TempReservationCreatedEvent(this,email, r.getRoomId());
             publisher.publishEvent(event);
 
 
