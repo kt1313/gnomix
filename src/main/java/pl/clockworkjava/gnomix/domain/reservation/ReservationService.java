@@ -115,7 +115,7 @@ public class ReservationService {
 
             TempReservationCreatedEvent event=new TempReservationCreatedEvent(this,email, r.getRoomId());
             publisher.publishEvent(event);
-
+            System.out.println("UDALO SIE UTWORZYC REZERWACJĘ");
 
 
 
