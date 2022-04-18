@@ -70,4 +70,8 @@ public class Reservation {
         this.creationDate=LocalDateTime.now();
 
     }
+
+    public void confirm() {
+        this.confirmed=true;
+    }
 }

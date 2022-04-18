@@ -28,7 +28,7 @@ public class ReservationService {
             ApplicationEventPublisher publisher) {
         this.repository = repository;
         this.roomService = roomService;
-        this.publisher=publisher;
+        this.publisher = publisher;
     }
 
     public List<Reservation> getAll() {
@@ -39,22 +39,21 @@ public class ReservationService {
 
         List<Room> availableRooms = new ArrayList<>();
 
-        if(size<0 || size>10) {
+        if (size < 0 || size > 10) {
             throw new IllegalArgumentException("Wrong size param [1-10]");
         }
 
-        if(from.isEqual(to) || to.isBefore(from)) {
+        if (from.isEqual(to) || to.isBefore(from)) {
             throw new IllegalArgumentException("Wrong dates");
         }
 
         List<Room> roomsWithProperSize = this.roomService.getRoomsForSize(size);
 
-        for(Room room : roomsWithProperSize) {
-            if(this.checkIfRoomAvailableForDates(room,from,to)) {
+        for (Room room : roomsWithProperSize) {
+            if (this.checkIfRoomAvailableForDates(room, from, to)) {
                 availableRooms.add(room);
             }
         }
-
 
 
         return availableRooms;
@@ -101,7 +100,7 @@ public class ReservationService {
     private List<Reservation> getAllReservationsForRoom(Room room) {
         return this.repository.findAll()
                 .stream()
-                .filter(reservation -> reservation.getRoom().getRoomId()==room.getRoomId())
+                .filter(reservation -> reservation.getRoom().getRoomId() == room.getRoomId())
                 .collect(Collectors.toList());
     }
 
@@ -110,17 +109,28 @@ public class ReservationService {
         Optional<Room> room = this.roomService.getRoomById(roomId);
 
         room.ifPresent(r -> {
-            Reservation tmp=new Reservation(fromDate, toDate, r, email);
+            Reservation tmp = new Reservation(fromDate, toDate, r, email);
             this.repository.save(tmp);
 
-            TempReservationCreatedEvent event=new TempReservationCreatedEvent(this,email, r.getRoomId());
+            TempReservationCreatedEvent event = new TempReservationCreatedEvent(this, email, tmp.getId());
             publisher.publishEvent(event);
             System.out.println("UDALO SIE UTWORZYC REZERWACJĘ");
 
 
-
         });
-        
 
+
+    }
+
+    public boolean confirmReservation(long reservationId) {
+
+        Optional<Reservation> byId = this.repository.findById(reservationId);
+
+        if (byId.isPresent()) {
+            byId.get().confirm();
+            return true;
+        } else {
+            return false;
+        }
     }
 }
