@@ -92,4 +92,11 @@ public class ReservationController {
         return "reservationconfirmation";
     }
 
+    @GetMapping("/delete/{id}")
+    public String removeReservation(@PathVariable("id") long id){
+        this.reservationService.removeById(id);
+
+        return "redirect:/reservaions";
+    }
+
 }

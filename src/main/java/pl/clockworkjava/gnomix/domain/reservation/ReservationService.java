@@ -128,9 +128,14 @@ public class ReservationService {
 
         if (byId.isPresent()) {
             byId.get().confirm();
+            this.repository.save(byId.get());
             return true;
         } else {
             return false;
         }
+    }
+
+    public void removeById(long id) {
+        this.repository.deleteById(id);
     }
 }
