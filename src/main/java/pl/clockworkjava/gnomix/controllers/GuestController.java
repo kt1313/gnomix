@@ -2,6 +2,7 @@ package pl.clockworkjava.gnomix.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,8 +11,10 @@ import pl.clockworkjava.gnomix.controllers.dto.GuestCreationDTO;
 import pl.clockworkjava.gnomix.controllers.dto.GuestUpdateDTO;
 import pl.clockworkjava.gnomix.domain.guest.Guest;
 import pl.clockworkjava.gnomix.domain.guest.GuestService;
+import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 
 @Controller
@@ -19,9 +22,13 @@ import javax.validation.Valid;
 public class GuestController {
 
     private GuestService guestService;
+    private ReservationService reservationService;
 
     @Autowired
-    public GuestController(GuestService service) {this.guestService = service;}
+    public GuestController(GuestService service, ReservationService reservationService) {
+        this.guestService = service;
+        this.reservationService=reservationService;
+    }
 
     //localhost8080://guests
     @GetMapping
@@ -32,42 +39,54 @@ public class GuestController {
     }
 
     @GetMapping("/create")
-    public String createNewGuest(){
+    public String createNewGuest() {
         return "createNewGuest";
     }
 
     @PostMapping
     public String handleCreateNewGuest
-            (@Valid GuestCreationDTO guestDTO, BindingResult result, Model model){
+            (@Valid GuestCreationDTO guestDTO, BindingResult result, Model model) {
         System.out.println(guestDTO);
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("errors", result.getAllErrors());
             return "createNewGuest";
-        }else {
+        } else {
             this.guestService.createNewGuest(guestDTO);
-            return "redirect:/guests";}
+            return "redirect:/guests";
+        }
     }
 
     @GetMapping("/delete/{id}")
-    public String removeGuest(@PathVariable("id") long id){
+    public String removeGuest(@PathVariable("id") long id) {
         this.guestService.removeById(id);
 
         return "redirect:/guests";
     }
 
     @GetMapping("/edit/{id}")
-    public String editGuest(@PathVariable long id, Model model){
-        Guest guest=this.guestService.getGuestById(id);
+    public String editGuest(@PathVariable long id, Model model) {
+        Guest guest = this.guestService.getGuestById(id);
         model.addAttribute("guest", guest);
 
         return "editGuest";
     }
 
     @PostMapping("/edit")
-    public String editGuest(GuestUpdateDTO updatedGuest){
+    public String editGuest(GuestUpdateDTO updatedGuest) {
         this.guestService.update(updatedGuest);
 
         return "redirect:/guests";
     }
 
+    @PostMapping("/createAndAttachToReservation")
+    public String createAndAttachToReservation(
+            String firstName,
+            String lastName,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate dateOfBirth,
+            long reservationId
+    ){
+        Guest g=this.guestService.createNewGuest(firstName,lastName,dateOfBirth);
+        this.reservationService.attachGuestToReservation(g, reservationId);
+        return "thankyoupage";
+    }
 }
