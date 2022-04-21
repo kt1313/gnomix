@@ -27,6 +27,7 @@ public class Guest {
     private  LocalDate birthDate;
     private  Gender gender;
     private boolean vip;
+    private String customerId;
 
 
     public Guest( String firstName,
@@ -52,15 +53,22 @@ public class Guest {
 
     public void update(String firstName,
                        String lastName, LocalDate birthDate,
-                       Gender gender, boolean vip){
+                       Gender gender,  String customerId){
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
-        this.vip=vip;
+//        this.vip=vip;
+        this.customerId=customerId;
     }
 
+    public String getCustomerId() {
+        return customerId;
+    }
 
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 
     @Override
     public String toString() {

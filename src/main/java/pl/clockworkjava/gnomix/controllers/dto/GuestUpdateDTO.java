@@ -1,6 +1,5 @@
 package pl.clockworkjava.gnomix.controllers.dto;
 
-
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.clockworkjava.gnomix.domain.guest.Gender;
@@ -13,8 +12,11 @@ public class GuestUpdateDTO {
     private final long id;
     private final String firstName;
     private final String lastName;
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private final LocalDate dateOfBirth;
+
     private final Gender gender;
-    private final boolean vip;
+
+    private final String customerId;
 }

@@ -74,4 +74,6 @@ public class Reservation {
     public void confirm() {
         this.confirmed=true;
     }
+
+
 }

@@ -83,9 +83,16 @@ public class GuestController {
             String firstName,
             String lastName,
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate dateOfBirth,
-            long reservationId
+            long reservationId,
+            String customerId
     ){
-        Guest g=this.guestService.createNewGuest(firstName,lastName,dateOfBirth);
+        Guest g;
+        if(customerId==null || customerId.isEmpty())
+        {g=this.guestService.createNewGuest(firstName,lastName,dateOfBirth);
+        }
+        else {
+            g=this.guestService.getGuestByCustomerId(firstName,lastName,dateOfBirth,customerId);
+        }
         this.reservationService.attachGuestToReservation(g, reservationId);
         return "thankyoupage";
     }
