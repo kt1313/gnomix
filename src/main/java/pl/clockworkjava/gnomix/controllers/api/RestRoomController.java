@@ -2,8 +2,10 @@ package pl.clockworkjava.gnomix.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import pl.clockworkjava.gnomix.controllers.dto.AvailableRoomsDTO;
 import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 import pl.clockworkjava.gnomix.domain.room.Room;
@@ -29,7 +31,11 @@ public class RestRoomController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
             int size
     ) {
-        List <Room> result=reservationService.getAvailableRooms(fromDate, toDate, size);
-        return result.stream().map(AvailableRoomsDTO::new).collect(Collectors.toList());
+        try {
+            List<Room> result = reservationService.getAvailableRooms(fromDate, toDate, size);
+            return result.stream().map(AvailableRoomsDTO::new).collect(Collectors.toList());
+        } catch (IllegalArgumentException ex){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(),ex);
+        }
     }
 }
