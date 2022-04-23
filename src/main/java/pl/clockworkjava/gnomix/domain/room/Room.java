@@ -18,7 +18,7 @@ public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  long roomId;
+    private long roomId;
 
     private String roomNumber;
 
@@ -26,6 +26,12 @@ public class Room {
     private List<BedType> beds;
 
     private Integer size;
+
+    @ElementCollection(targetClass = String.class)
+    private List<String> photosUrl;
+
+    private String description;
+
 
     public Room(String roomNumber, List<BedType> beds) {
 
@@ -42,7 +48,14 @@ public class Room {
         updateBeds();
     }
 
-    Room(){}
+    public Room(String roomNumber, List<BedType> beds, String description, List<String> photosUrl) {
+        this(roomNumber, beds);
+        this.description = description;
+        this.photosUrl = photosUrl;
+
+    }
+
+    public Room(){}
 
     public String getBedsAsStr() {
 
@@ -53,12 +66,16 @@ public class Room {
 
 
     public void update(String roomNumber, List<BedType> beds) {
-    this.roomNumber=roomNumber;
-    this.beds=beds;
-    updateBeds();
+        this.roomNumber = roomNumber;
+        this.beds = beds;
+        updateBeds();
     }
 
-
+    public void update(String roomNumber, List<BedType> beds, String description, List<String> photosUrl) {
+        this.description = description;
+        this.photosUrl = photosUrl;
+        this.updateBeds();
+    }
 
     private Function<BedType, String> bedTypeStringFunction() {
         return bedType -> {
@@ -73,7 +90,7 @@ public class Room {
     }
 
     private void updateBeds() {
-        this.size=
+        this.size =
                 this.beds.stream().mapToInt(BedType::getSize).sum();
     }
 
