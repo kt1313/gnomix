@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.clockworkjava.gnomix.controllers.dto.CreateRoomDTO;
+import pl.clockworkjava.gnomix.controllers.dto.UpdateRoomDTO;
 import pl.clockworkjava.gnomix.domain.room.Room;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
 
@@ -41,8 +43,8 @@ public class RoomController {
     }
 
     @PostMapping("/create")
-    public String handleCreateNewRoom(String roomNumber, String bedsDescription) {
-        this.roomService.createNewRoom(roomNumber, bedsDescription);
+    public String handleCreateNewRoom(CreateRoomDTO dto) {
+        this.roomService.createNewRoom(dto.number(), dto.bedsDesc(), dto.description(), dto.photosUrl());
 
         return "redirect:/rooms";
     }
@@ -65,8 +67,8 @@ return  "editRoom";
     }
 
     @PostMapping("/edit")
-    public String editRoom(long id, String roomNumber, String bedsDescription){
-        this.roomService.update(id, roomNumber, bedsDescription);
+    public String editRoom(UpdateRoomDTO dto){
+        this.roomService.update(dto.id(), dto.roomNumber(), dto.bedsDescription(), dto.descrition(), dto.photosUrl());
         return "redirect:/rooms";
     }
 

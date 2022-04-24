@@ -64,7 +64,7 @@ public class RoomControllerTest {
 
         Mockito
                 .verify(roomService,Mockito.times(1))
-                .createNewRoom("107C", "2+1");
+                .createNewRoom("107C", "2+1", null, null);
     }
 
     @Test
@@ -122,7 +122,7 @@ public class RoomControllerTest {
 
         Mockito
                 .verify(roomService,Mockito.times(1))
-                .update(21,"107C", "2+1");
+                .update(21,"107C", "2+1", null, null);
     }
 
 }

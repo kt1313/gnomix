@@ -26,10 +26,10 @@ public class RoomService {
         return this.repository.findAll();
     }
 
-    public Room createNewRoom(String roomNumber, String bedsDescription) {
+    public Room createNewRoom(String roomNumber, String bedsDescription, String description, List<String> photosUrl) {
         List<BedType> beds = getBedTypesList(bedsDescription);
 
-        Room newOne = new Room(roomNumber, beds);
+        Room newOne = new Room(roomNumber, beds, description, photosUrl);
 
         return this.repository.save(newOne);
     }
@@ -45,10 +45,10 @@ public class RoomService {
     }
 
 
-    public void update(long id, String roomNumber, String bedsDescription) {
+    public void update(long id, String roomNumber, String bedsDescription, String description, List<String> photosUrl) {
         Room roomToUpdate = this.repository.getById(id);
         List<BedType> beds = getBedTypesList(bedsDescription);
-        roomToUpdate.update(roomNumber, beds);
+        roomToUpdate.update(roomNumber, beds, description, photosUrl);
         this.repository.save(roomToUpdate);
     }
 

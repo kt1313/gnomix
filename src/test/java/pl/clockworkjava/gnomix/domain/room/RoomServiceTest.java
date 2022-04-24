@@ -25,7 +25,7 @@ public class RoomServiceTest {
 
 
         //when
-        rs.createNewRoom("102A", "2+1+1");
+        rs.createNewRoom("102A", "2+1+1", "", null);
 
         //then
         Mockito.verify(roomRepository)
