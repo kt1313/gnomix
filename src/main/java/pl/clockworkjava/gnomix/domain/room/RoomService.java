@@ -3,9 +3,6 @@ package pl.clockworkjava.gnomix.domain.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.clockworkjava.gnomix.controllers.dto.GuestUpdateDTO;
-import pl.clockworkjava.gnomix.domain.guest.Guest;
-import pl.clockworkjava.gnomix.domain.guest.GuestRepository;
 
 import java.util.*;
 import java.util.function.Function;

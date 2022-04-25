@@ -1,6 +1,5 @@
-package pl.clockworkjava.gnomix.controllers.dto;
+package pl.clockworkjava.gnomix.domain.guest.dto;
 
-import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.clockworkjava.gnomix.domain.guest.Gender;
 

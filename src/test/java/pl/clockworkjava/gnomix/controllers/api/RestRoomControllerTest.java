@@ -4,7 +4,6 @@ package pl.clockworkjava.gnomix.controllers.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -15,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.clockworkjava.gnomix.controllers.RoomController;
-import pl.clockworkjava.gnomix.controllers.dto.AvailableRoomsDTO;
+import pl.clockworkjava.gnomix.domain.room.dto.RoomAvailableDTO;
 import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 import pl.clockworkjava.gnomix.domain.room.Room;
 
@@ -60,8 +59,8 @@ public class RestRoomControllerTest {
         MockHttpServletResponse response = result.getResponse();
 //        response.getContentAsString();
 
-        CollectionType dtoCollection = mapper.getTypeFactory().constructCollectionType(List.class, AvailableRoomsDTO.class);
-        List<AvailableRoomsDTO> results = mapper.readValue(response.getContentAsString(), dtoCollection);
+        CollectionType dtoCollection = mapper.getTypeFactory().constructCollectionType(List.class, RoomAvailableDTO.class);
+        List<RoomAvailableDTO> results = mapper.readValue(response.getContentAsString(), dtoCollection);
         assertTrue(response.getStatus() == HttpStatus.OK.value());
         assertTrue(response.getContentType().equals("application/json"));
         assertTrue(results.size() == 1);

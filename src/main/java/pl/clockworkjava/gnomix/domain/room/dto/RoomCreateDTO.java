@@ -1,8 +1,8 @@
-package pl.clockworkjava.gnomix.controllers.dto;
+package pl.clockworkjava.gnomix.domain.room.dto;
 
 import java.util.List;
 
-public record CreateRoomDTO(
+public record RoomCreateDTO(
         String number,
         String bedsDesc,
         String description,
