@@ -38,7 +38,7 @@ public class ReservationService {
         return this.repository.findAll();
     }
 
-    public List<Room> getAvailableRooms(LocalDate from, LocalDate to, int size) throws IllegalArgumentException{
+    public List<Room> getAvailableRooms(LocalDate from, LocalDate to, int size) throws IllegalArgumentException {
 
         List<Room> availableRooms = new ArrayList<>();
 
@@ -107,7 +107,7 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
-    public void createTemporaryReservation(long roomId, LocalDate fromDate, LocalDate toDate, String email) {
+    public boolean createTemporaryReservation(long roomId, LocalDate fromDate, LocalDate toDate, String email) {
 
         Optional<Room> room = this.roomService.getRoomById(roomId);
 
@@ -122,7 +122,7 @@ public class ReservationService {
 
         });
 
-
+        return room.isPresent();
     }
 
     public boolean confirmReservation(long reservationId) {
