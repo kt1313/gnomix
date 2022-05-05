@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import pl.clockworkjava.gnomix.domain.room.RoomService;
 import pl.clockworkjava.gnomix.domain.room.dto.RoomAvailableDTO;
 import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 import pl.clockworkjava.gnomix.domain.room.Room;
@@ -18,10 +19,12 @@ import java.util.stream.Collectors;
 public class RestRoomController {
 
     private ReservationService reservationService;
+    private RoomService roomService;
 
     @Autowired
-    public RestRoomController(ReservationService reservationService) {
+    public RestRoomController(ReservationService reservationService, RoomService roomService) {
         this.reservationService = reservationService;
+        this.roomService = roomService;
     }
 
     @GetMapping("/api/getFreeRooms")
@@ -33,8 +36,15 @@ public class RestRoomController {
         try {
             List<Room> result = reservationService.getAvailableRooms(fromDate, toDate, size);
             return result.stream().map(RoomAvailableDTO::new).collect(Collectors.toList());
-        } catch (IllegalArgumentException ex){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(),ex);
+        } catch (IllegalArgumentException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
+    }
+
+    @GetMapping("api/rooms")
+    public List<RoomAvailableDTO> getAllRooms() {
+        return this.roomService.findAllRooms()
+                .stream().map(RoomAvailableDTO::new)
+                .collect(Collectors.toList());
     }
 }
