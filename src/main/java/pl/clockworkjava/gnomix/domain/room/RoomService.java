@@ -30,6 +30,12 @@ public class RoomService {
 
         return this.repository.save(newOne);
     }
+    public Room createNewRoom(String roomNumber, List<BedType> beds, String description, List<String> photosUrl) {
+
+        Room newOne = new Room(roomNumber, beds, description, photosUrl);
+
+        return this.repository.save(newOne);
+    }
 
     public void removeRoomById(long id) {
 
