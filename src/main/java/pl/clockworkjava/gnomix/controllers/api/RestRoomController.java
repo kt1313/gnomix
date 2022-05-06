@@ -1,12 +1,10 @@
 package pl.clockworkjava.gnomix.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
 import pl.clockworkjava.gnomix.domain.room.dto.RoomAvailableDTO;
@@ -26,7 +24,7 @@ public class RestRoomController {
     private RoomService roomService;
 
     @Autowired
-    public RestRoomController(ReservationService reservationService, RoomService roomService) {
+    public RestRoomController(ReservationService reservationService,  RoomService roomService) {
         this.reservationService = reservationService;
         this.roomService = roomService;
     }
@@ -53,8 +51,18 @@ public class RestRoomController {
     }
 
     @PostMapping("api/rooms")
-    public void createRoom(@RequestBody RoomCreateRestDTO dto){
+    public void createRoom(@RequestBody RoomCreateRestDTO dto) {
         this.roomService.createNewRoom(dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrl());
 
     }
+
+    @DeleteMapping("api/rooms/{id}")
+    public void deleteRoom(@PathVariable long id) {
+        try {
+            this.roomService.removeRoomById(id);
+        } catch (IllegalStateException ex) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, ex.getMessage(), ex);
+        }
+    }
 }
+
