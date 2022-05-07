@@ -64,5 +64,10 @@ public class RestRoomController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, ex.getMessage(), ex);
         }
     }
+
+    @PutMapping("api/rooms/{id}")
+    public void updateRoom(@PathVariable long id, @RequestBody RoomCreateRestDTO dto){
+        this.roomService.update( id, dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrl());
+    }
 }
 

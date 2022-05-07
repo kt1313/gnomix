@@ -78,6 +78,14 @@ public class RoomService {
         this.repository.save(toUpdate);
     }
 
+    public void update(long id, String number, List<BedType> beds, String description, List<String> photosUrls) {
+
+        Room toUpdate = this.repository.getById(id);
+        toUpdate.update(number, beds, description, photosUrls);
+
+        this.repository.save(toUpdate);
+    }
+
     private List<BedType> getBedTypesList(String bedsDesc) {
         String[] splitedBedDec = bedsDesc.split("\\+");
 
