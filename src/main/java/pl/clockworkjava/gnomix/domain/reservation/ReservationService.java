@@ -28,10 +28,8 @@ public class ReservationService {
     @Autowired
     public ReservationService(
             ReservationRepository repository,
-            @Lazy RoomService roomService,
             ApplicationEventPublisher publisher) {
         this.repository = repository;
-        this.roomService = roomService;
         this.publisher = publisher;
     }
 
@@ -163,6 +161,10 @@ public class ReservationService {
             byId.get().setOwner(g);
             this.repository.save(byId.get());
         }
+    }
+    @Autowired
+    public  void setRoomService (RoomService roomService){
+        this.roomService=roomService;
     }
 
 }

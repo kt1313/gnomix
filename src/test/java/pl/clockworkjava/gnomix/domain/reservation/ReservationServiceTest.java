@@ -24,7 +24,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher=Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
+        ReservationService reservationService = new ReservationService(repo,  publisher);
+        reservationService.setRoomService(rs);
 
         //when then
         assertThrows(IllegalArgumentException.class,
@@ -41,8 +42,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher=Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
-        //when then
+        ReservationService reservationService = new ReservationService(repo,  publisher);
+        reservationService.setRoomService(rs);        //when then
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     reservationService.getAvailableRooms(LocalDate.now(), LocalDate.now().plus(1, ChronoUnit.DAYS), 15);
@@ -57,8 +58,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher=Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
-        //when then
+        ReservationService reservationService = new ReservationService(repo,  publisher);
+        reservationService.setRoomService(rs);        //when then
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     reservationService.getAvailableRooms(LocalDate.now(), LocalDate.now(), 5);
@@ -73,8 +74,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher=Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
-        //when then
+        ReservationService reservationService = new ReservationService(repo,  publisher);
+        reservationService.setRoomService(rs);        //when then
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     reservationService.getAvailableRooms(LocalDate.now().plus(1, ChronoUnit.DAYS), LocalDate.now(), 5);
@@ -387,7 +388,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher=Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
+        ReservationService reservationService = new ReservationService(repo,  publisher);
+        reservationService.setRoomService(rs);
         List<Reservation> reservations = new ArrayList<>();
 
         LocalDate fromOne = LocalDate.parse("2022-01-08");
@@ -425,7 +427,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher=Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
+        ReservationService reservationService = new ReservationService(repo,  publisher);
+        reservationService.setRoomService(rs);
         List<Reservation> reservations = new ArrayList<>();
 
         LocalDate fromOne = LocalDate.parse("2022-01-08");
