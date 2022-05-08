@@ -69,5 +69,10 @@ public class RestRoomController {
     public void updateRoom(@PathVariable long id, @RequestBody RoomCreateRestDTO dto){
         this.roomService.update( id, dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrl());
     }
+
+    @PatchMapping("api/rooms/{id}")
+    public void updateRoomViaPatch(@PathVariable long id, @RequestBody RoomCreateRestDTO dto){
+        this.roomService.updateViaPatch( id, dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrl());
+    }
 }
 

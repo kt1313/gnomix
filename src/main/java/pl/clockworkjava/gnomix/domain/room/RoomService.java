@@ -119,4 +119,30 @@ public class RoomService {
     public Optional<Room> getRoomById(long roomId) {
         return this.repository.findById(roomId);
     }
+
+    public void updateViaPatch(long id, String roomNumber, List<BedType> beds, String description, List<String> photosUrl) {
+        Room toUpdate = this.repository.getById(id);
+
+        String newNumber=toUpdate.getRoomNumber();
+        if(roomNumber!=null){
+            newNumber=roomNumber;
+        }
+        List<BedType> newBeds=toUpdate.getBeds();
+        if(beds!=null){
+            newBeds=beds;
+        }
+
+        String newDescription=toUpdate.getDescription();
+        if(description!=null){
+            newDescription=description;
+        }
+
+        List<String> newPhotosUrls=toUpdate.getPhotosUrl();
+        if(photosUrl!=null){
+            newPhotosUrls=photosUrl;
+        }
+        toUpdate.update(newNumber, newBeds, newDescription, newPhotosUrls);
+
+        this.repository.save(toUpdate);
+    }
 }
