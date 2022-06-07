@@ -55,7 +55,8 @@ public class RestRoomController {
         this.roomService.createNewRoom(dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrl());
 
     }
-
+@ApiResponse(responseCode="200", description="OK")
+@ApiResponse(responseCode="403", description="Forbidden, room reservation for given room exists")
     @DeleteMapping("api/rooms/{id}")
     public void deleteRoom(@PathVariable long id) {
         try {
