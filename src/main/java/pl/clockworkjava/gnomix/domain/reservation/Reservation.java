@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private LocalDate fromDate;
@@ -35,7 +35,7 @@ public class Reservation {
         this.room = room;
     }
 
-    Reservation() {
+    public Reservation() {
     }
 
     public Reservation(LocalDate fromDate, LocalDate toDate,
