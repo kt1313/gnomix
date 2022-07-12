@@ -110,10 +110,12 @@ public class RoomService {
             return new ArrayList<>();
         }
 
-        return this.repository.findAll()
-                .stream()
-                .filter( r -> r.getSize()>=size)
-                .collect(Collectors.toList());
+//        return this.repository.findAll()
+//                .stream()
+//                .filter( r -> r.getSize()>=size)
+//                .collect(Collectors.toList());
+        //zamieniamy to na automatyczna funkcje SpringData z Repozytorium
+        return this.repository.findBySizeGreaterThanEqual(size);
     }
 
     public Optional<Room> getRoomById(long roomId) {
