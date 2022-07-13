@@ -16,12 +16,13 @@ public class GuestRepositoryTest {
     private GuestRepository guestRepository;
 
     @Test
+
     public void getCustomerById() {
 
         LocalDate n = LocalDate.now();
 
         Guest g1 = new Guest("Pawel", "Cwik", n, Gender.MALE, true);
-        g1.setCustomerId("A123");
+        g1.setCustomerId("A1234");
 
         Guest g2 = new Guest("Pawel", "Cwik", n, Gender.FEMALE, true);
         g2.setCustomerId("Awww");
@@ -30,7 +31,7 @@ public class GuestRepositoryTest {
         this.guestRepository.save(g2);
 
         Optional<Guest> result=this.guestRepository.findTop1ByCustomerIdAndFirstNameAndLastNameAndBirthDate("" +
-                "A123",
+                "A1234",
                 "Pawel",
                 "Cwik",
                 n
