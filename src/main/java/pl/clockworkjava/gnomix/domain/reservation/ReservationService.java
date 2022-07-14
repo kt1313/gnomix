@@ -142,16 +142,13 @@ public class ReservationService {
     }
 
     public void removeUnconfirmedReservations() {
-        this.repository
-                .findAll()
+        this.repository.findByConfirmed(Boolean.FALSE)
                 .stream()
-                .filter(reservation -> !reservation.isConfirmed())
-                .filter(reservation ->
-                        reservation.getCreationDate()
-                                .plus(60, ChronoUnit.MINUTES).isBefore(LocalDateTime.now()
-                        ))
-                .forEach(reservation -> this.repository.deleteById(reservation.getId()));
-
+                .filter(reservation -> reservation.getCreationDate().plus(60, ChronoUnit.MINUTES)
+                        .isBefore(LocalDateTime.now()))
+                .forEach(reservation ->
+                        this.repository.deleteById(reservation.getId())
+                );
     }
 
     public void attachGuestToReservation(Guest g, long reservationId) {
