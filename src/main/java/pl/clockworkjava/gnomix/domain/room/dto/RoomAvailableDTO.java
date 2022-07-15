@@ -26,8 +26,8 @@ public class RoomAvailableDTO {
 
 
     public RoomAvailableDTO(Room room){
-        this.number= room.getRoomNumber();
-        this.id= room.getRoomId();
+        this.number= room.getNumber();
+        this.id= room.getId();
         this.beds=room.getBeds();
         this.size=room.getSize();
         this.description=room.getDescription();

@@ -2,7 +2,6 @@ package pl.clockworkjava.gnomix.domain.room;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 
@@ -32,7 +31,7 @@ public class RoomServiceTest {
         //then
         Mockito.verify(roomRepository)
                 .save(roomCaptor.capture());
-        assertEquals("102A", roomCaptor.getValue().getRoomNumber());
+        assertEquals("102A", roomCaptor.getValue().getNumber());
         assertEquals(3, roomCaptor.getValue().getBeds().size());
         assertEquals(BedType.DOUBLE, roomCaptor.getValue().getBeds().get(0));
         assertEquals(BedType.SINGLE, roomCaptor.getValue().getBeds().get(1));

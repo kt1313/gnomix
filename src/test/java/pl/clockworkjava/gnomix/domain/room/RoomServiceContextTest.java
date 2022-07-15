@@ -3,7 +3,6 @@ package pl.clockworkjava.gnomix.domain.room;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class RoomServiceContextTest {
         //when
         List<Room> result=roomService.getRoomsForSize(2);
         for(Room r: result){
-            System.out.printf(": "+r.getRoomId());
+            System.out.printf(": "+r.getId());
         }
         //then
         assertEquals(2, result.size());
@@ -37,7 +36,7 @@ public class RoomServiceContextTest {
         //when
         List<Room> result=roomService.getRoomsForSize(1);
         for(Room r: result){
-            System.out.printf(": "+r.getRoomId());
+            System.out.printf(": "+r.getId());
         }
         //then
         assertEquals(3, result.size());

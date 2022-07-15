@@ -1,12 +1,9 @@
 package pl.clockworkjava.gnomix.domain.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import pl.clockworkjava.gnomix.domain.reservation.Reservation;
 import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +48,7 @@ public class RoomService {
         boolean thereIsReservationForThisRoom = this.reservationService
                 .getAll()
                 .stream()
-                .anyMatch(r -> r.getRoom().getRoomId()==id);
+                .anyMatch(r -> r.getRoom().getId()==id);
 
         if(thereIsReservationForThisRoom) {
             throw new IllegalStateException("There is reservation for this room");
@@ -125,7 +122,7 @@ public class RoomService {
     public void updateViaPatch(long id, String roomNumber, List<BedType> beds, String description, List<String> photosUrl) {
         Room toUpdate = this.repository.getById(id);
 
-        String newNumber=toUpdate.getRoomNumber();
+        String newNumber=toUpdate.getNumber();
         if(roomNumber!=null){
             newNumber=roomNumber;
         }

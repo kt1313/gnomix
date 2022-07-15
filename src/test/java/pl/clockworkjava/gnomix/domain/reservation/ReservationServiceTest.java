@@ -396,7 +396,7 @@ public class ReservationServiceTest {
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
         Room r = new Room("101", new ArrayList<>());
-        r.setRoomId(101);
+        r.setId(101);
 
         reservations.add(new Reservation(fromOne, toOne, null, r));
 
@@ -435,7 +435,7 @@ public class ReservationServiceTest {
         LocalDate toOne = LocalDate.parse("2022-01-10");
 
         Room r = new Room("101", new ArrayList<>());
-        r.setRoomId(101);
+        r.setId(101);
 
         reservations.add(new Reservation(fromOne, toOne, null, r));
 

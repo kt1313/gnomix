@@ -47,7 +47,7 @@ public class RestRoomControllerTest {
         int size = 2;
 
         Room r = new Room("101", new ArrayList<>());
-        r.setRoomId(101);
+        r.setId(101);
 
         Mockito.when(reservationService.getAvailableRooms(fromDate, toDate, size)).thenReturn(Arrays.asList(r));
         MockHttpServletRequestBuilder request = get(url);

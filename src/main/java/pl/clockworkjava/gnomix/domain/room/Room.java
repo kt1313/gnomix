@@ -1,14 +1,10 @@
 package pl.clockworkjava.gnomix.domain.room;
 
 import lombok.Data;
-import pl.clockworkjava.gnomix.domain.reservation.Reservation;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -18,9 +14,9 @@ public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long roomId;
+    private long id;
 
-    private String roomNumber;
+    private String number;
 
     @ElementCollection(targetClass = BedType.class)
     private List<BedType> beds;
@@ -33,13 +29,13 @@ public class Room {
     private String description;
 
 
-    public Room(String roomNumber, List<BedType> beds) {
+    public Room(String number, List<BedType> beds) {
 
         if (beds == null) {
             throw new IllegalArgumentException("Beds list cannot be null");
         }
 
-        this.roomNumber = roomNumber;
+        this.number = number;
         List<BedType> bedsField = new ArrayList<>(beds);
 //        Collections.copy(bedsField, beds);
         this.beds = bedsField;
@@ -48,8 +44,8 @@ public class Room {
         updateBeds();
     }
 
-    public Room(String roomNumber, List<BedType> beds, String description, List<String> photosUrl) {
-        this(roomNumber, beds);
+    public Room(String number, List<BedType> beds, String description, List<String> photosUrl) {
+        this(number, beds);
         this.description = description;
         this.photosUrl = photosUrl;
 
@@ -66,7 +62,7 @@ public class Room {
 
 
     public void update(String roomNumber, List<BedType> beds) {
-        this.roomNumber = roomNumber;
+        this.number = roomNumber;
         this.beds = beds;
         updateBeds();
     }
@@ -96,7 +92,7 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Pokoj oznaczony jako:  " + roomNumber;
+        return "Pokoj oznaczony jako:  " + number;
     }
 
 

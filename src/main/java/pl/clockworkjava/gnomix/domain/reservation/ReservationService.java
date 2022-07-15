@@ -2,7 +2,6 @@ package pl.clockworkjava.gnomix.domain.reservation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import pl.clockworkjava.gnomix.domain.guest.Guest;
 import pl.clockworkjava.gnomix.domain.reservation.events.TempReservationCreatedEvent;
@@ -102,7 +101,7 @@ public class ReservationService {
     private List<Reservation> getAllReservationsForRoom(Room room) {
         return this.repository.findAll()
                 .stream()
-                .filter(reservation -> reservation.getRoom().getRoomId() == room.getRoomId())
+                .filter(reservation -> reservation.getRoom().getId() == room.getId())
                 .collect(Collectors.toList());
     }
 
