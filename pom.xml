@@ -73,9 +73,10 @@
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.6.4</version>
 		</dependency>
+
 		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -92,6 +93,15 @@
 					<source>16</source>
 					<target>16</target>
 					<compilerArgs>--enable-preview</compilerArgs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-core</artifactId>
+				<configuration>
+					<url>jdbc:mysql://mysql22.mydevil.net:3306/m1446_spring_kompletna</url>
+					<user>m1446_spri_komp</user>
+					<password>AlaMaKota99!</password>
 				</configuration>
 			</plugin>
 		</plugins>
