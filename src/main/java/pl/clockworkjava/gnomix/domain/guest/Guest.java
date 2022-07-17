@@ -4,10 +4,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -28,6 +25,9 @@ public class Guest {
     private  Gender gender;
     private boolean vip;
     private String customerId;
+
+    @Column (name="phone")
+    private String phoneNumber;
 
 
     public Guest( String firstName,
@@ -76,5 +76,12 @@ public class Guest {
                 ", Nazwisko: " + lastName  +
                 ", Data urodzenia: " + birthDate +
                 ", Płeć: " + gender+", VIP: "+vip ;
+    }
+
+    public void setPhoneNumber(String phoneNumber){
+        if (phoneNumber.length()>20){
+            throw new IllegalArgumentException("Number too long");
+        }
+        this.phoneNumber=phoneNumber;
     }
 }
