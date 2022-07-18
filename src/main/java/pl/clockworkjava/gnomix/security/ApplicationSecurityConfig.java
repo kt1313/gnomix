@@ -14,6 +14,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     protected  void configure (HttpSecurity http) throws Exception{
         http.authorizeRequests()
+                .antMatchers("/v3/ap-docs/*")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
