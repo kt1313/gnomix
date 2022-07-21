@@ -2,6 +2,7 @@ package pl.clockworkjava.gnomix.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,9 +51,9 @@ public class RoomController {
     }
 
     @GetMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     public String removeRoomById(@PathVariable("id") long id) {
         this.roomService.removeRoomById(id);
-
         return "redirect:/rooms";
     }
 
