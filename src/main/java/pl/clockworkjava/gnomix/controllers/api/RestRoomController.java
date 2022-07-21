@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
@@ -25,12 +26,13 @@ public class RestRoomController {
     private RoomService roomService;
 
     @Autowired
-    public RestRoomController(ReservationService reservationService,  RoomService roomService) {
+    public RestRoomController(ReservationService reservationService, RoomService roomService) {
         this.reservationService = reservationService;
         this.roomService = roomService;
     }
 
     @GetMapping("/api/getFreeRooms")
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER', 'ROLE_RECEPTION')")
     public List<RoomAvailableDTO> listOfAvailAbleRooms(
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
@@ -45,6 +47,7 @@ public class RestRoomController {
     }
 
     @GetMapping("api/rooms")
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER', 'ROLE_RECEPTION')")
     public List<RoomAvailableDTO> getAllRooms() {
         return this.roomService.findAllRooms()
                 .stream().map(RoomAvailableDTO::new)
@@ -52,13 +55,16 @@ public class RestRoomController {
     }
 
     @PostMapping("api/rooms")
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     public void createRoom(@RequestBody RoomCreateRestDTO dto) {
         this.roomService.createNewRoom(dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrl());
 
     }
-@ApiResponse(responseCode="200", description="OK")
-@ApiResponse(responseCode="403", description="Forbidden, room reservation for given room exists")
+
+    @ApiResponse(responseCode = "200", description = "OK")
+    @ApiResponse(responseCode = "403", description = "Forbidden, room reservation for given room exists")
     @DeleteMapping("api/rooms/{id}")
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     public void deleteRoom(@PathVariable long id) {
         try {
             this.roomService.removeRoomById(id);
@@ -68,13 +74,15 @@ public class RestRoomController {
     }
 
     @PutMapping("api/rooms/{id}")
-    public void updateRoom(@PathVariable long id, @RequestBody RoomCreateRestDTO dto){
-        this.roomService.update( id, dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrl());
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
+    public void updateRoom(@PathVariable long id, @RequestBody RoomCreateRestDTO dto) {
+        this.roomService.update(id, dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrl());
     }
 
     @PatchMapping("api/rooms/{id}")
-    public void updateRoomViaPatch(@PathVariable long id, @RequestBody RoomCreateRestDTO dto){
-        this.roomService.updateViaPatch( id, dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrl());
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
+    public void updateRoomViaPatch(@PathVariable long id, @RequestBody RoomCreateRestDTO dto) {
+        this.roomService.updateViaPatch(id, dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrl());
     }
 }
 
