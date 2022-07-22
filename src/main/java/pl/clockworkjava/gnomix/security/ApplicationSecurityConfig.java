@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -50,7 +51,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/rooms", true)
                 .and()
-                .rememberMe();
+                .rememberMe()
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"));
     }
 
     @Override
