@@ -46,7 +46,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin();
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/rooms", true)
+                .and()
+                .rememberMe();
     }
 
     @Override
