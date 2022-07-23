@@ -20,7 +20,7 @@ public class User {
     @Column(name = "role")
     private List<String> roles;
 
-    User(){
+    public User(){
 
     }
 
@@ -29,6 +29,8 @@ public class User {
         this.password = password;
         this.roles = roles;
     }
+
+
 
     public Long getId() {
         return id;
