@@ -1,8 +1,6 @@
 package pl.clockworkjava.gnomix.security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,29 +19,28 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter
-{
+public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+
 
     private PasswordEncoder encoder;
+    private UserDetailsService userDetailService;
 
     @Autowired
-    public ApplicationSecurityConfig(PasswordEncoder encoder){
-        this.encoder=encoder;
+    public ApplicationSecurityConfig(PasswordEncoder encoder, UserDetailsService service) {
+        this.encoder = encoder;
+        this.userDetailService = service;
     }
+
     @Override
-    protected  void configure (HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
+
         http
-//                .csrf().disable()
                 .csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 .authorizeRequests()
                 .antMatchers("/v3/api-docs/*")
                 .permitAll()
-//                .antMatchers(HttpMethod.GET, "/api/rooms/**")
-//                .hasAnyRole("MANAGER", "RECEPTION")
-//                .antMatchers("api/rooms/**", "/rooms/**")
-//                .hasRole("MANAGER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -52,23 +49,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter
                 .defaultSuccessUrl("/rooms", true)
                 .and()
                 .rememberMe()
-                .and().logout()
+                .and()
+                .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"));
     }
-
-    @Override
-    @Bean
-    protected UserDetailsService userDetailsService() {
-        UserDetails user = User.builder()
-                .username("pawelcwik")
-                .password(this.encoder.encode("pawelcwik"))
-                .roles("MANAGER").build();
-
-        UserDetails user2 = User.builder()
-                .username("ali")
-                .password(this.encoder.encode("ali"))
-                .roles("RECEPTION").build();
-        return new InMemoryUserDetailsManager(user);
-    }
-
 }

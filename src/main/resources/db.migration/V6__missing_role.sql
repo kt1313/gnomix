@@ -1,0 +1,1 @@
+insert into USERS_ROLES (user_id, role) values (2, 'RECEPTION');
