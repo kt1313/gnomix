@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -71,6 +72,7 @@ public class RestRoomControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "pawelcwik", roles = {"RECEPTION"})
     public void getFreeRoomsInvalidSize() throws Exception {
 
         //given
