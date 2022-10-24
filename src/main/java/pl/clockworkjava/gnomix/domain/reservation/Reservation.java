@@ -7,6 +7,7 @@ import pl.clockworkjava.gnomix.domain.room.Room;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Data
 @Entity
@@ -18,7 +19,7 @@ public class Reservation {
 
     private LocalDate fromDate;
     private LocalDate toDate;
-    private  boolean confirmed;
+    private boolean confirmed;
     private LocalDateTime creationDate;
     private String email;
 
@@ -35,23 +36,7 @@ public class Reservation {
         this.room = room;
     }
 
-    public Reservation() {
-    }
-
-    public Reservation(LocalDate fromDate, LocalDate toDate,
-                       boolean confirmed, LocalDateTime creationDate,
-                       Guest owner, Room room) {
-        this.fromDate = fromDate;
-        this.toDate = toDate;
-        this.confirmed = confirmed;
-        this.creationDate = creationDate;
-        this.owner = owner;
-        this.room = room;
-    }
-
-    public Reservation(LocalDate fromDate, LocalDate toDate,
-                       boolean confirmed, LocalDateTime creationDate,
-                       String email, Guest owner, Room room) {
+    public Reservation(LocalDate fromDate, LocalDate toDate, boolean confirmed, LocalDateTime creationDate, String email, Guest owner, Room room) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.confirmed = confirmed;
@@ -61,19 +46,28 @@ public class Reservation {
         this.room = room;
     }
 
-    public Reservation(LocalDate fromDate, LocalDate toDate, Room room, String email ) {
+    public Reservation(LocalDate fromDate, LocalDate toDate, boolean confirmed, LocalDateTime creationDate, Guest owner, Room room) {
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.confirmed = confirmed;
+        this.creationDate = creationDate;
+        this.owner = owner;
+        this.room = room;
+    }
+
+    Reservation() {
+    }
+
+    public Reservation(LocalDate fromDate, LocalDate toDate, Room room, String email) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.room = room;
         this.email = email;
-        this.confirmed=false;
-        this.creationDate=LocalDateTime.now();
-
+        this.confirmed = false;
+        this.creationDate = LocalDateTime.now();
     }
 
     public void confirm() {
-        this.confirmed=true;
+        this.confirmed = true;
     }
-
-
 }

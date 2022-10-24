@@ -1,12 +1,15 @@
-<!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edytuj gościa</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
+    <title>Gnomix - goście</title>
     <script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Gnomix - Panel Zarządzania.</a>
 
@@ -30,49 +33,37 @@
         </ul>
     </div>
 </nav>
-
 <div class="p-3 text-center bg-light">
-    <h2 class="mb-3">Edytuj gościa</h2>
+    <h2 class="mb-3">Lista Gości</h2>
 </div>
-
 <div class="container">
-    <form th:action="@{/guests/edit}" method="post">
-        <input type="hidden" name="id" th:value="${guest.id}"/>
-
-        <div class="form-group">
-            <label for="editguestfirstname">Imię:</label>
-            <input type="text" name="firstName" th:value="${guest.firstName}" required
-                   class="form-control" id="editguestfirstname"/>
-        </div>
-
-        <div class="form-group">
-            <label for="editguestlastname">Nazwisko:</label>
-            <input type="text" name="lastName" th:value="${guest.lastName}" required
-                   class="form-control" id="editguestlastname"/>
-        </div>
-
-        <div class="form-group">
-            <label for="editguestdateofbirth">Data urodzenia:</label>
-            <input type="date" name="dateOfBirth" th:value="${guest.birthDate}"
-                   class="form-control" id="editguestdateofbirth"/></p>
-        </div>
-
-        <div class="form-group">
-            <label for="editguestgender">Płeć:</label>
-            <select name="gender" th:value="${guest.gender}" class="form-control" id="editguestgender">
-                <option value="MALE">Mężyczna</option>
-                <option value="FEMALE">Kobieta</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="editguestcustomerID">Numer Klienta:</label>
-            <input type="text" name="customerId" th:value="${guest.customerId}"
-                   class="form-control" id="editguestcustomerID"/>
-        </div>
-
-        <input type="submit" class="btn btn-primary" value="Edytuj gościa" />
-    </form>
-</div>
+    <a class="nav-link" href="/guests/create">Utwórz nowego gościa</a>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Data urodzenia</th>
+            <th>Płeć</th>
+            <th>Numer Klienta</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="guest : ${guests}">
+            <td th:text="${guest.firstName}"/>
+            <td th:text="${guest.lastName}"/>
+            <td th:text="${guest.birthDate}"/>
+            <td th:text="${guest.gender}"/>
+            <td th:text="${guest.customerId}"/>
+            <td>
+                <a th:href="@{/guests/delete/{id}(id=${guest.id})}">Usuń</a>
+            </td>
+            <td>
+                <a th:href="@{/guests/edit/{id}(id=${guest.id})}">Edytuj</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
 </body>
 </html>

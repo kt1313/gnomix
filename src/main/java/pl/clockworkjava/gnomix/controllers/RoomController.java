@@ -1,8 +1,6 @@
 package pl.clockworkjava.gnomix.controllers;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +12,6 @@ import pl.clockworkjava.gnomix.domain.room.dto.RoomUpdateDTO;
 import pl.clockworkjava.gnomix.domain.room.Room;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 @RequestMapping("/rooms")
 public class RoomController {
@@ -24,17 +19,13 @@ public class RoomController {
     private RoomService roomService;
 
     @Autowired
-    public RoomController(RoomService service) {
-        this.roomService = service;
+    public RoomController(RoomService roomService) {
+        this.roomService = roomService;
     }
 
-    List<Room> rooms = new ArrayList<>();
-
-
     @GetMapping
-    public String getAllRooms(Model model) {
-//    rooms.add(room);
-        model.addAttribute("rooms", this.roomService.findAllRooms());
+    public String getRooms(Model model) {
+        model.addAttribute("rooms", this.roomService.findAll());
         return "rooms";
     }
 
@@ -45,32 +36,35 @@ public class RoomController {
 
     @PostMapping("/create")
     public String handleCreateNewRoom(RoomCreateDTO dto) {
-        this.roomService.createNewRoom(dto.number(), dto.bedsDesc(), dto.description(), dto.photosUrl());
+
+        this.roomService.createNewRoom(dto.number(), dto.bedsDesc(), dto.description(), dto.photosUrls());
 
         return "redirect:/rooms";
     }
 
     @GetMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ROLE_MANAGER')")
-    public String removeRoomById(@PathVariable("id") long id) {
-        this.roomService.removeRoomById(id);
+    public String removeRoom(@PathVariable long id) {
+
+        this.roomService.removeById(id);
+
         return "redirect:/rooms";
     }
 
     @GetMapping("/edit/{id}")
-    public String editRoomById(@PathVariable("id") long id, Model model) {
+    public String editRoom(@PathVariable long id, Model model) {
 
         Room room = this.roomService.findById(id);
         model.addAttribute("room", room);
         model.addAttribute("bedsAsStr", room.getBedsAsStr());
 
-return  "editRoom";
+        return "editRoom";
     }
 
     @PostMapping("/edit")
-    public String editRoom(RoomUpdateDTO dto){
-        this.roomService.update(dto.id(), dto.roomNumber(), dto.bedsDescription(), dto.descrition(), dto.photosUrl());
+    public String editRoom(RoomUpdateDTO dto) {
+
+        this.roomService.update(dto.id(), dto.number(), dto.bedsDesc(), dto.description(), dto.photosUrls());
+
         return "redirect:/rooms";
     }
-
 }

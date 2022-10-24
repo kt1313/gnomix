@@ -1,16 +1,14 @@
-
 CREATE TABLE reservation (
-    id bigint not null auto_increment,
-    confirmed boolean not null,
-    creation_date timestamp,
-    email varchar(255),
-    from_date date,
-    to_date date,
-    owner_id bigint,
-    room_id bigint,
-    primary key (id)
-                         );
-
+                             id bigint not null auto_increment,
+                             confirmed boolean not null,
+                             creation_date timestamp,
+                             email varchar(255),
+                             from_date date,
+                             to_date date,
+                             owner_id bigint,
+                             room_id bigint,
+                             primary key (id)
+);
 
 ALTER TABLE reservation ADD constraint FK50156niokhqlv60kjalwhi9wi foreign key (owner_id) references guest(id);
 

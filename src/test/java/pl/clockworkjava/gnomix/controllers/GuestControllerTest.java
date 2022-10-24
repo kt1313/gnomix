@@ -1,14 +1,10 @@
 package pl.clockworkjava.gnomix.controllers;
 
-
 import static org.hamcrest.Matchers.containsString;
-
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static pl.clockworkjava.gnomix.domain.guest.Gender.MALE;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -30,7 +26,6 @@ import java.util.Arrays;
 @WebMvcTest(GuestController.class)
 public class GuestControllerTest {
 
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -38,143 +33,74 @@ public class GuestControllerTest {
     private GuestService guestService;
 
     @MockBean
-    private ReservationService reservationService;
+    private ReservationService reservationServiceService;
 
     @Test
     public void basic() throws Exception {
 
-        Guest guest = new Guest("Pawel", "Cwik", LocalDate.of(1986, 11, 13), MALE, true);
+        Guest guest = new Guest("Paweł", "Cwik", LocalDate.of(1986, 11, 13), Gender.MALE);
 
-        Mockito.when(guestService.findAllGuests()).thenReturn(Arrays.asList(guest));
+        Mockito.when(guestService.findAll()).thenReturn(Arrays.asList(guest));
 
         mockMvc.perform(get("/guests"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("guests"))
                 .andExpect(view().name("guests"))
                 .andExpect(content().string(containsString("1986-11-13")));
-
     }
 
     @Test
-    public void handlePostTest() throws Exception {
+    public void handlePost() throws Exception {
 
-        String postContent = "firstName=Tom&lastName=Klimkiewicz&dateOfBirth=2021-11-01&gender=MALE&vip=on";
+        String postContent = "firstName=Pawel&lastName=Cwik&dateOfBirth=2021-09-15&gender=FEMALE&vip=on";
 
-
-        MockHttpServletRequestBuilder request = post("/guests")
-                .contentType(MediaType.valueOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
-                .content(postContent);
-
+        MockHttpServletRequestBuilder request =
+                post("/guests")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                        .content(postContent);
 
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/guests"));
 
-        GuestCreationDTO dto = new GuestCreationDTO("Tomek", "Klimkiewicz"
-                , LocalDate.parse("2021-11-01"), Gender.MALE, "on");
+        GuestCreationDTO dto = new GuestCreationDTO(
+                "Pawel",
+                "Cwik",
+                LocalDate.parse("2021-09-15"),
+                Gender.FEMALE,
+                "on"
+        );
 
-
-        Mockito
-                .verify(guestService, Mockito.times(1))
-                .createNewGuest(dto);
+        Mockito.verify(guestService, Mockito.times(1)).createNewGuest(dto);
     }
 
     @Test
-    public void handleDeleteTest() throws Exception {
+    public void handleDelete() throws Exception {
 
-        //jezeli dostal na taki adres: /geusts/delete/21
-        MockHttpServletRequestBuilder request = get("/guests/delete/21");
+        MockHttpServletRequestBuilder request =
+                get("/guests/delete/21");
 
-        //taki request
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/guests"));
 
-        //to powinna sie wykonac taka metoda
-        Mockito
-                .verify(guestService, Mockito.times(1))
-                .removeById(21);
+        Mockito.verify(guestService, Mockito.times(1)).removeById(21);
     }
 
-
     @Test
-    public void handleShowEditFormTest() throws Exception {
+    public void handleShowEditForm() throws Exception {
+        MockHttpServletRequestBuilder request =
+                get("/guests/edit/21");
 
-        //jezeli dostal na taki adres: /geusts/delete/21
-        MockHttpServletRequestBuilder request = get("/guests/edit/21");
+        Guest guest = new Guest("Paweł", "Cwik", LocalDate.of(1986, 11, 13), Gender.MALE);
 
-        Guest guest = new Guest
-                ("Tomasz",
-                        "Klimkiewicz",
-                        LocalDate.of(1976, 5, 8),
-                        MALE, true);
+        Mockito.when(guestService.getById(21)).thenReturn(guest);
 
-        Mockito.when(guestService.getGuestById(21)).thenReturn(guest);
-
-        //taki request (spodziewamy sie konkretnego modelu i konkr view)
         mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("guest"))
                 .andExpect(view().name("editGuest"));
 
-        //to powinna sie wykonac taka metoda
-        Mockito
-                .verify(guestService, Mockito.times(1))
-                .removeById(21);
-
+        Mockito.verify(guestService, Mockito.times(1)).getById(21);
     }
-
-    @Test
-    public void editGuestTest() throws Exception{
-        //given
-        String test="test";
-        //when
-        String test2=test;
-        //then
-        assertEquals(test,test2);
-    }
-//    @Test
-//    public void editGuestTest() throws Exception {
-//
-//        //given
-//        GuestRepository guestRepository = Mockito.mock(GuestRepository.class);
-//        GuestService guestService = new GuestService(guestRepository);
-//
-//        List<Guest> guests = new ArrayList<>();
-//        Mockito.when(guestRepository.findAll()).thenReturn(guests);
-//        Guest guestBefore = new Guest(
-//                "Tom", "Klmx"
-//                , LocalDate.parse("1976-05-08")
-//                , MALE, false);
-//        guests.add(guestBefore);
-//        Guest guestBefore2 = new Guest(
-//                "Han", "Klmx"
-//                , LocalDate.parse("1976-05-08")
-//                , MALE, false);
-//        guests.add(guestBefore2);
-//
-//        //guestAfter to oczekiwany wynik
-//        Guest guestAfter = new Guest(
-//                "Tom", "After"
-//                , LocalDate.parse("1976-05-08")
-//                , MALE
-//                , true);
-//
-//        //guestUpdateDTO to sztuczne DTO niby z templatki
-//        GuestUpdateDTO guestToModifyDTO = new GuestUpdateDTO(21
-//                , "Tom", "After"
-//                , LocalDate.parse("1976-05-08")
-//                , MALE
-//                , true);
-//
-//        //when
-//        doCallRealMethod().when(guestService).update(guestToModifyDTO);
-//        long id = 21;
-//        Mockito.when(guestRepository.getById((long) 21)).thenReturn(guestAfter);
-//        guestService.update(guestToModifyDTO);
-//        Guest guestUpdated = guestService.getGuestById(21);
-//
-//        //then
-//        assertEquals(guestAfter, guestUpdated);
-//    }
 }

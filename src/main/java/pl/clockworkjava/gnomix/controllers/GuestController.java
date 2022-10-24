@@ -1,6 +1,5 @@
 package pl.clockworkjava.gnomix.controllers;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 import javax.validation.Valid;
 import java.time.LocalDate;
 
-
 @Controller
 @RequestMapping("/guests")
 public class GuestController {
@@ -27,14 +25,12 @@ public class GuestController {
     @Autowired
     public GuestController(GuestService service, ReservationService reservationService) {
         this.guestService = service;
-        this.reservationService=reservationService;
+        this.reservationService = reservationService;
     }
 
-    //localhost8080://guests
     @GetMapping
     public String guests(Model model) {
-        model.addAttribute("guests",
-                this.guestService.findAllGuests());
+        model.addAttribute("guests", this.guestService.findAll());
         return "guests";
     }
 
@@ -44,20 +40,21 @@ public class GuestController {
     }
 
     @PostMapping
-    public String handleCreateNewGuest
-            (@Valid GuestCreationDTO guestDTO, BindingResult result, Model model) {
-        System.out.println(guestDTO);
-        if (result.hasErrors()) {
+    public String handleCreateNewGuest(@Valid GuestCreationDTO dto, BindingResult result, Model model) {
+
+        if(result.hasErrors()) {
             model.addAttribute("errors", result.getAllErrors());
             return "createNewGuest";
         } else {
-            this.guestService.createNewGuest(guestDTO);
+            this.guestService.createNewGuest(dto);
             return "redirect:/guests";
         }
+
     }
 
     @GetMapping("/delete/{id}")
-    public String removeGuest(@PathVariable("id") long id) {
+    public String removeGuest(@PathVariable long id) {
+
         this.guestService.removeById(id);
 
         return "redirect:/guests";
@@ -65,7 +62,8 @@ public class GuestController {
 
     @GetMapping("/edit/{id}")
     public String editGuest(@PathVariable long id, Model model) {
-        Guest guest = this.guestService.getGuestById(id);
+
+        Guest guest = this.guestService.getById(id);
         model.addAttribute("guest", guest);
 
         return "editGuest";
@@ -73,6 +71,7 @@ public class GuestController {
 
     @PostMapping("/edit")
     public String editGuest(GuestUpdateDTO updatedGuest) {
+
         this.guestService.update(updatedGuest);
 
         return "redirect:/guests";
@@ -82,18 +81,19 @@ public class GuestController {
     public String createAndAttachToReservation(
             String firstName,
             String lastName,
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate dateOfBirth,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
             long reservationId,
             String customerId
-    ){
+    ) {
         Guest g;
-        if(customerId==null || customerId.isEmpty())
-        {g=this.guestService.createNewGuest(firstName,lastName,dateOfBirth);
-        }
-        else {
-            g=this.guestService.getGuestByCustomerId(firstName,lastName,dateOfBirth,customerId);
+        if(customerId==null || customerId.isEmpty()) {
+            g = this.guestService.createNewGuest(firstName, lastName, dateOfBirth);
+        } else {
+            g = this.guestService.getGuestByCustomerId(firstName, lastName, dateOfBirth, customerId);
         }
         this.reservationService.attachGuestToReservation(g, reservationId);
+
         return "thankyoupage";
     }
+
 }

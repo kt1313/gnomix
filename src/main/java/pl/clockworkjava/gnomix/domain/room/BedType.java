@@ -3,18 +3,13 @@ package pl.clockworkjava.gnomix.domain.room;
 public enum BedType {
     SINGLE(1), DOUBLE(2);
 
-    private  Integer size;
+    private int size;
 
-
-    BedType(Integer size) {
+    BedType(int size) {
         this.size = size;
     }
 
-    public Integer getSize() {
-        return size;
-    }
-
-    public String toString(){
-        return this.size.toString();
+    public int getSize() {
+        return this.size;
     }
 }

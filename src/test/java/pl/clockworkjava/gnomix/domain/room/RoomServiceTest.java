@@ -18,106 +18,44 @@ public class RoomServiceTest {
 
         //give
         RoomRepository roomRepository = Mockito.mock(RoomRepository.class);
-        ReservationService reservationService=Mockito.mock(ReservationService.class);
+        ReservationService reservationService = Mockito.mock(ReservationService.class);
         ArgumentCaptor<Room> roomCaptor = ArgumentCaptor.forClass(Room.class);
         RoomService rs = new RoomService(roomRepository, reservationService);
         List<BedType> bedTypes = Arrays.asList(BedType.DOUBLE, BedType.SINGLE, BedType.SINGLE);
-        Room r = new Room("102A", bedTypes);
-
+        Room r = new Room("102", bedTypes);
 
         //when
-        rs.createNewRoom("102A", "2+1+1", "", null);
+        rs.createNewRoom("102", "2+1+1", "", null);
+
+
 
         //then
-        Mockito.verify(roomRepository)
-                .save(roomCaptor.capture());
-        assertEquals("102A", roomCaptor.getValue().getNumber());
+        Mockito.verify(roomRepository).save(roomCaptor.capture());
+        assertEquals("102", roomCaptor.getValue().getNumber());
         assertEquals(3, roomCaptor.getValue().getBeds().size());
         assertEquals(BedType.DOUBLE, roomCaptor.getValue().getBeds().get(0));
         assertEquals(BedType.SINGLE, roomCaptor.getValue().getBeds().get(1));
         assertEquals(BedType.SINGLE, roomCaptor.getValue().getBeds().get(2));
     }
-//zamieniono na test JPA
-//    @Test
-//    public void testGetRoomsForSize() {
-//
-//        //given
-//        List<Room> rooms = new ArrayList<>();
-//        rooms.add(new Room("101", Arrays.asList(BedType.DOUBLE)));
-//        rooms.add(new Room("102", Arrays.asList(BedType.SINGLE)));
-//        rooms.add(new Room("103", Arrays.asList(BedType.DOUBLE, BedType.SINGLE)));
-//
-//        RoomRepository roomRepository = Mockito.mock(RoomRepository.class);
-//        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-//        ReservationService reservationService=Mockito.mock(ReservationService.class);
-//
-//        RoomService roomService=new RoomService(roomRepository, reservationService);
-//
-//        //when
-//        List<Room> result=roomService.getRoomsForSize(1);
-//
-//        //then
-//        assertEquals(3,result.size());
-//    }
 
-//    @Test
-//    public void testGetNoRoomsForSize() {
-//        //given
-//        List<Room> rooms = new ArrayList<>();
-//        rooms.add(new Room("101", Arrays.asList(BedType.DOUBLE)));
-//        rooms.add(new Room("102", Arrays.asList(BedType.SINGLE)));
-//        rooms.add(new Room("103", Arrays.asList(BedType.DOUBLE, BedType.SINGLE)));
-//
-//        RoomRepository roomRepository = Mockito.mock(RoomRepository.class);
-//        ReservationService reservationService=Mockito.mock(ReservationService.class);
-//        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-//        RoomService roomService=new RoomService(roomRepository, reservationService);
-//
-////when
-//        List<Room> result=roomService.getRoomsForSize(4);
-//
-//        //then
-//        assertEquals(0,result.size());
-//    }
-
-//    @Test
-//    public void testGetRoomsForEqualSize() {
-//
-//        //given
-//        List<Room> rooms = new ArrayList<>();
-//        rooms.add(new Room("101", Arrays.asList(BedType.DOUBLE)));
-//        rooms.add(new Room("102", Arrays.asList(BedType.SINGLE)));
-//        rooms.add(new Room("103", Arrays.asList(BedType.DOUBLE, BedType.SINGLE)));
-//
-//        RoomRepository roomRepository = Mockito.mock(RoomRepository.class);
-//        ReservationService reservationService=Mockito.mock(ReservationService.class);
-//        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-//        RoomService roomService=new RoomService(roomRepository, reservationService);
-//
-//        //when
-//        List<Room> result=roomService.getRoomsForSize(3);
-//
-//        //then
-//        assertEquals(1,result.size());
-//    }
 
     @Test
-    public void testGetRoomsForWrongSize() {
+    public void testGetNoRoomsWrongSize() {
         //given
         List<Room> rooms = new ArrayList<>();
         rooms.add(new Room("101", Arrays.asList(BedType.DOUBLE)));
         rooms.add(new Room("102", Arrays.asList(BedType.SINGLE)));
         rooms.add(new Room("103", Arrays.asList(BedType.DOUBLE, BedType.SINGLE)));
-
         RoomRepository roomRepository = Mockito.mock(RoomRepository.class);
-        ReservationService reservationService=Mockito.mock(ReservationService.class);
+        ReservationService reservationService = Mockito.mock(ReservationService.class);
         Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-        RoomService roomService=new RoomService(roomRepository, reservationService);
+        RoomService roomService = new RoomService(roomRepository, reservationService);
 
         //when
-        List<Room> result=roomService.getRoomsForSize(-1);
+        List<Room> result = roomService.getRoomsForSize(-1);
 
         //then
-        assertEquals(0,result.size());
+        assertEquals(0, result.size());
+
     }
 }

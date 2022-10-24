@@ -4,11 +4,12 @@ public enum Gender {
     MALE("Mężczyzna"), FEMALE("Kobieta");
 
     private final String gender;
-    Gender(String gender){
-        this.gender=gender;
+
+    Gender(String gender) {
+        this.gender = gender;
     }
 
-    public String toString(){
+    public String toString() {
         return this.gender;
     }
 }

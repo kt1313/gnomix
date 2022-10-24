@@ -1,4 +1,4 @@
-package pl.clockworkjava.gnomix.domain.reservation.dto;
+package pl.clockworkjava.gnomix.domain.reservation;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,15 +9,19 @@ import java.time.LocalDate;
 public class ReservationCreateTmpRestDTO {
 
     @NotNull
-    private final long roomId;
+    private long roomId;
+
     @NotNull
-    private final @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    LocalDate fromDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate fromDate;
+
     @NotNull
-    private final @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate toDate;
+
     @Email
     @NotNull
-    private final String email;
+    private String email;
 
     public ReservationCreateTmpRestDTO(long roomId, LocalDate fromDate, LocalDate toDate, String email) {
         this.roomId = roomId;

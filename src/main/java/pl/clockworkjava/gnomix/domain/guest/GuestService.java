@@ -1,6 +1,5 @@
 package pl.clockworkjava.gnomix.domain.guest;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.clockworkjava.gnomix.domain.guest.dto.GuestCreationDTO;
@@ -20,16 +19,13 @@ public class GuestService {
         this.repository = repository;
     }
 
-    public List<Guest> findAllGuests() {
+    public List<Guest> findAll() {
         return this.repository.findAll();
     }
 
-    public void createNewGuest(GuestCreationDTO guestDTO) {
+    public void createNewGuest(GuestCreationDTO dto) {
 
-        Guest newOne = new Guest(guestDTO.getFirstName()
-                , guestDTO.getLastName()
-                , guestDTO.getDateOfBirth(), guestDTO.getGender()
-                , guestDTO.isVip());
+        Guest newOne = new Guest(dto.getFirstName(), dto.getLastName(), dto.getDateOfBirth(), dto.getGender(), dto.isVip());
         this.repository.save(newOne);
     }
 
@@ -37,8 +33,7 @@ public class GuestService {
         this.repository.deleteById(id);
     }
 
-
-    public Guest getGuestById(long id) {
+    public Guest getById(long id) {
         return this.repository.getById(id);
     }
 
@@ -49,10 +44,8 @@ public class GuestService {
                 updatedGuest.getLastName(),
                 updatedGuest.getDateOfBirth(),
                 updatedGuest.getGender(),
-//                updatedGuest.isVip(),
                 updatedGuest.getCustomerId()
         );
-
         this.repository.save(byId);
     }
 
@@ -63,13 +56,6 @@ public class GuestService {
     }
 
     public Guest getGuestByCustomerId(String firstName, String lastName, LocalDate dateOfBirth, String customerId) {
-        Optional<Guest> first = this.repository.findAll().stream()
-                .filter(guest -> guest.getCustomerId().equals(customerId))
-                .filter(guest -> guest.getFirstName().equals(firstName))
-                .filter(guest -> guest.getLastName().equals(lastName))
-                .filter(guest -> guest.getBirthDate().equals(dateOfBirth))
-                .findFirst();
-
-        return first.get();
+        return this.repository.findTop1ByCustomerIdAndFirstNameAndLastNameAndBirthDate(customerId, firstName, lastName, dateOfBirth).get();
     }
 }

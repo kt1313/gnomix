@@ -1,9 +1,12 @@
 package pl.clockworkjava.gnomix.domain.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import pl.clockworkjava.gnomix.domain.reservation.Reservation;
 import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +26,7 @@ public class RoomService {
         this.reservationService = reservationService;
     }
 
-    public List<Room> findAllRooms() {
+    public List<Room> findAll() {
         return repository.findAll();
     }
 
@@ -43,7 +46,7 @@ public class RoomService {
         return this.repository.save(newOne);
     }
 
-    public void removeRoomById(long id) {
+    public void removeById(long id) {
 
         boolean thereIsReservationForThisRoom = this.reservationService
                 .getAll()
@@ -78,6 +81,7 @@ public class RoomService {
     public void update(long id, String number, List<BedType> beds, String description, List<String> photosUrls) {
 
         Room toUpdate = this.repository.getById(id);
+
         toUpdate.update(number, beds, description, photosUrls);
 
         this.repository.save(toUpdate);
@@ -107,11 +111,6 @@ public class RoomService {
             return new ArrayList<>();
         }
 
-//        return this.repository.findAll()
-//                .stream()
-//                .filter( r -> r.getSize()>=size)
-//                .collect(Collectors.toList());
-        //zamieniamy to na automatyczna funkcje SpringData z Repozytorium
         return this.repository.findBySizeGreaterThanEqual(size);
     }
 
@@ -119,27 +118,30 @@ public class RoomService {
         return this.repository.findById(roomId);
     }
 
-    public void updateViaPatch(long id, String roomNumber, List<BedType> beds, String description, List<String> photosUrl) {
+    public void updateViaPatch(long id, String roomNumber, List<BedType> beds, String description, List<String> photosUrls) {
+
         Room toUpdate = this.repository.getById(id);
 
-        String newNumber=toUpdate.getNumber();
-        if(roomNumber!=null){
-            newNumber=roomNumber;
-        }
-        List<BedType> newBeds=toUpdate.getBeds();
-        if(beds!=null){
-            newBeds=beds;
+        String newNumber = toUpdate.getNumber();
+        if(roomNumber!=null) {
+            newNumber = roomNumber;
         }
 
-        String newDescription=toUpdate.getDescription();
-        if(description!=null){
-            newDescription=description;
+        List<BedType> newBeds = toUpdate.getBeds();
+        if(beds!=null) {
+            newBeds = beds;
         }
 
-        List<String> newPhotosUrls=toUpdate.getPhotosUrl();
-        if(photosUrl!=null){
-            newPhotosUrls=photosUrl;
+        String newDescription = toUpdate.getDescription();
+        if(description!=null) {
+            newDescription = description;
         }
+
+        List<String> newPhotosUrls = toUpdate.getPhotosUrls();
+        if(photosUrls!=null) {
+            newPhotosUrls = photosUrls;
+        }
+
         toUpdate.update(newNumber, newBeds, newDescription, newPhotosUrls);
 
         this.repository.save(toUpdate);

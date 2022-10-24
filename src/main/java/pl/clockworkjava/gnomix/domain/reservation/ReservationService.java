@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class ReservationService {
 
     private ReservationRepository repository;
-    private  RoomService roomService;
+    private RoomService roomService;
     private ApplicationEventPublisher publisher;
 
     @Autowired
@@ -40,22 +40,21 @@ public class ReservationService {
 
         List<Room> availableRooms = new ArrayList<>();
 
-        if (size < 0 || size > 10) {
+        if(size<0 || size>10) {
             throw new IllegalArgumentException("Wrong size param [1-10]");
         }
 
-        if (from.isEqual(to) || to.isBefore(from)) {
+        if(from.isEqual(to) || to.isBefore(from)) {
             throw new IllegalArgumentException("Wrong dates");
         }
 
         List<Room> roomsWithProperSize = this.roomService.getRoomsForSize(size);
 
-        for (Room room : roomsWithProperSize) {
-            if (this.checkIfRoomAvailableForDates(room, from, to)) {
+        for(Room room : roomsWithProperSize) {
+            if(this.checkIfRoomAvailableForDates(room,from,to)) {
                 availableRooms.add(room);
             }
         }
-
 
         return availableRooms;
     }
@@ -101,7 +100,7 @@ public class ReservationService {
     private List<Reservation> getAllReservationsForRoom(Room room) {
         return this.repository.findAll()
                 .stream()
-                .filter(reservation -> reservation.getRoom().getId() == room.getId())
+                .filter(reservation -> reservation.getRoom().getId()==room.getId())
                 .collect(Collectors.toList());
     }
 
@@ -109,31 +108,30 @@ public class ReservationService {
 
         Optional<Room> room = this.roomService.getRoomById(roomId);
 
-        room.ifPresent(r -> {
+        room.ifPresent( r -> {
             Reservation tmp = new Reservation(fromDate, toDate, r, email);
             this.repository.save(tmp);
-
-            TempReservationCreatedEvent event = new TempReservationCreatedEvent(this, email, tmp.getId());
+            TempReservationCreatedEvent event = new TempReservationCreatedEvent(this,email,tmp.getId());
             publisher.publishEvent(event);
-            System.out.println("UDALO SIE UTWORZYC REZERWACJĘ");
-
-
+            System.out.println("UDALO SIE UTOWRZYC REZERWACJE");
         });
 
         return room.isPresent();
+
     }
 
     public boolean confirmReservation(long reservationId) {
 
         Optional<Reservation> byId = this.repository.findById(reservationId);
 
-        if (byId.isPresent()) {
+        if(byId.isPresent()) {
             byId.get().confirm();
             this.repository.save(byId.get());
             return true;
         } else {
             return false;
         }
+
     }
 
     public void removeById(long id) {
@@ -141,6 +139,7 @@ public class ReservationService {
     }
 
     public void removeUnconfirmedReservations() {
+
         this.repository.findByConfirmed(Boolean.FALSE)
                 .stream()
                 .filter(reservation -> reservation.getCreationDate().plus(60, ChronoUnit.MINUTES)
@@ -153,14 +152,14 @@ public class ReservationService {
     public void attachGuestToReservation(Guest g, long reservationId) {
         Optional<Reservation> byId = this.repository.findById(reservationId);
 
-        if (byId.isPresent()) {
+        if(byId.isPresent()) {
             byId.get().setOwner(g);
             this.repository.save(byId.get());
         }
     }
-    @Autowired
-    public  void setRoomService (RoomService roomService){
-        this.roomService=roomService;
-    }
 
+    @Autowired
+    public void setRoomService(RoomService roomService) {
+        this.roomService = roomService;
+    }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -21,59 +22,46 @@ public class Room {
     @ElementCollection(targetClass = BedType.class)
     private List<BedType> beds;
 
-    private Integer size;
-
-    @ElementCollection(targetClass = String.class)
-    private List<String> photosUrl;
+    private int size;
 
     private String description;
 
+    @ElementCollection(targetClass = String.class)
+    private List<String> photosUrls;
+
+    Room() {
+
+    }
 
     public Room(String number, List<BedType> beds) {
 
         if (beds == null) {
-            throw new IllegalArgumentException("Beds list cannot be null");
+            throw new IllegalArgumentException("Beds list can not be null");
         }
 
         this.number = number;
+
         List<BedType> bedsField = new ArrayList<>(beds);
-//        Collections.copy(bedsField, beds);
         this.beds = bedsField;
-//        this.size = this.beds.stream().mapToInt(BedType::getSize).sum();
 
         updateBeds();
     }
 
-    public Room(String number, List<BedType> beds, String description, List<String> photosUrl) {
-        this(number, beds);
+    public Room(String number, List<BedType> beds, String description, List<String> photosUrls) {
+        this(number,beds);
         this.description = description;
-        this.photosUrl = photosUrl;
-
+        this.photosUrls = photosUrls;
     }
-
-    public Room(){}
 
     public String getBedsAsStr() {
+        String bedAsStr = this.beds.stream()
+                .map(getBedTypeStringFunction())
+                .collect(Collectors.joining("+"));
 
-        String bedAsstr = this.beds.stream()
-                .map(bedTypeStringFunction()).collect(Collectors.joining("+"));
-        return bedAsstr;
+        return bedAsStr;
     }
 
-
-    public void update(String roomNumber, List<BedType> beds) {
-        this.number = roomNumber;
-        this.beds = beds;
-        updateBeds();
-    }
-
-    public void update(String roomNumber, List<BedType> beds, String description, List<String> photosUrl) {
-        this.description = description;
-        this.photosUrl = photosUrl;
-        this.updateBeds();
-    }
-
-    private Function<BedType, String> bedTypeStringFunction() {
+    private Function<BedType, String> getBedTypeStringFunction() {
         return bedType -> {
             if (bedType == BedType.DOUBLE) {
                 return "2";
@@ -85,15 +73,19 @@ public class Room {
         };
     }
 
+    public void update(String number, List<BedType> beds) {
+        this.number = number;
+        this.beds = beds;
+        updateBeds();
+    }
+
+    public void update(String number, List<BedType> beds, String description, List<String> photosUrls) {
+        this.description = description;
+        this.photosUrls = photosUrls;
+        this.update(number, beds);
+    }
+
     private void updateBeds() {
-        this.size =
-                this.beds.stream().mapToInt(BedType::getSize).sum();
+        this.size = this.beds.stream().mapToInt(BedType::getSize).sum();
     }
-
-    @Override
-    public String toString() {
-        return "Pokoj oznaczony jako:  " + number;
-    }
-
-
 }

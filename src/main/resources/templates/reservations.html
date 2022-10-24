@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http:/>/www.thymeleaf.org"
->
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Gnomix - rezerwacje</title>
     <script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Gnomix - Panel Zarządzania.</a>
 
@@ -29,17 +28,16 @@
                 <a class="nav-link" href="/reservations">Rezerwacje</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"
-                   href="/reservations/create/stepone">Utwórz rezerwację</a>
+                <a class="nav-link" href="/reservations/create/stepone">Utwórz rezerwacje</a>
             </li>
         </ul>
     </div>
 </nav>
-
-<div class="p-3 text-center bg-light"><h2 class="mb-3">Lista rezerwacji</h2>
+<div class="p-3 text-center bg-light">
+    <h2 class="mb-3">Lista Rezerwacji</h2>
 </div>
-
 <div class="container">
+
     <table class="table table-striped">
         <thead class="thead-dark">
         <tr>
@@ -48,19 +46,18 @@
             <th>Pokój</th>
             <th>Właściciel</th>
             <th>Potwierdzona</th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="reservation : ${reservations}">
             <td th:text="${reservation.fromDate}"/>
             <td th:text="${reservation.toDate}"/>
-            <td th:text="${reservation.room.roomNumber}"/>
+            <td th:text="${reservation.room.number}"/>
             <td th:text="|${reservation.owner?.firstName} ${reservation.owner?.lastName}|"/>
-            <td> <span th:if="${reservation.confirmed}">Tak</span><span th:if="${!reservation.confirmed}">Nie</span></td>
-<td>
-    <a th:href="@{/reservation/delete/{id}(id=${reservaion.id})}">Usuń</a>
-</td>
+            <td><span th:if="${reservation.confirmed}">Tak</span><span th:if="${!reservation.confirmed}">Nie</span></td>
+            <td>
+                <a th:href="@{/reservations/delete/{id}(id=${reservation.id})}">Usuń</a>
+            </td>
         </tr>
         </tbody>
     </table>

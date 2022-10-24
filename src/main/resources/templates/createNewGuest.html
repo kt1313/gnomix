@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Utwórz nowego gościa</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,54 +25,49 @@
                 <a class="nav-link" href="/reservations">Rezerwacje</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"
-                   href="/reservations/create/stepone">Utwórz rezerwację</a>
+                <a class="nav-link" href="/reservations/create/stepone">Utwórz rezerwacje</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="p-3 text-center bg-light"><h2 class="mb-3">Dodaj nowego gościa</h2>
+<div class="p-3 text-center bg-light">
+    <h3 class="mb-3">Dodaj nowego gościa</h3>
 </div>
 
 <div class="container">
-
     <form th:action="@{/guests}" method="post">
+
         <div class="form-group">
             <label for="createnewguestfirstname">Imię:</label>
             <input type="text" name="firstName" required
-                   class="form-control" id="createnewguestfirstname"/>
+                   class="form-control" id="createnewguestfirstname" />
         </div>
+
         <div class="form-group">
-            <label for="createnewguestlastname">Nazwisko: </label>
+            <label for="createnewguestlastname">Nazwisko:</label>
             <input type="text" name="lastName" required
                    class="form-control" id="createnewguestlastname"/>
         </div>
+
         <div class="form-group">
-            <label for="createnewguestdateofbirth">Data urodzenia: </label>
-            <input type="date" name="dateOfBirth" required
+            <label for="createnewguestdateofbirth">Data urodzenia:</label>
+            <input type="date" name="dateOfBirth"
                    class="form-control" id="createnewguestdateofbirth"/>
         </div>
         <div class="form-group">
-            <label for="createnewguestgender">Płeć: </label>
-            <select name="gender" class="form-control" id="createnewguestgender" required>
-                <option value="MALE">Mężczyzna</option>
+            <label for="createnewguestgender">Płeć:</label>
+            <select name="gender" class="form-control" id="createnewguestgender">
+                <option value="MALE">Mężyczna</option>
                 <option value="FEMALE">Kobieta</option>
             </select>
         </div>
-<!--        <div class="form-group">-->
-<!--            <label for="createnewguestconfirmed">Potwierdzony: </label>-->
-<!--            <input type="checkbox" name="confirmed" required-->
-<!--                   class="form-control" id="createnewguestconfirmed"/>-->
-<!--        </div>-->
         <div class="form-group">
-            <label for="createnewguestvip">VIP: </label>
+            <label for="createnewguestvip">Vip:</label>
             <input type="checkbox" name="vip"
                    class="form-control" id="createnewguestvip"/>
         </div>
-        <div class="form-group">
-            <input type="submit" class="btn-primary" value="Utwórz gościa" />
-        </div>
+        <input type="submit" class="btn btn-primary" value="Utwórz gościa" />
     </form>
 
     <div th:if="${not #lists.isEmpty(errors)}">

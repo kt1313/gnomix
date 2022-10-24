@@ -1,5 +1,6 @@
 package pl.clockworkjava.gnomix.domain.guest.dto;
 
+
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.clockworkjava.gnomix.domain.guest.Gender;
 
@@ -8,32 +9,33 @@ import javax.validation.constraints.Past;
 import java.time.LocalDate;
 import java.util.Objects;
 
-//@Data
 public class GuestCreationDTO {
 
     @NotBlank
-    private final String firstName;
-    @NotBlank
-    private final String lastName;
-    @Past(message = "Data w przeszłości musi byc")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private final LocalDate dateOfBirth;
-    private final Gender gender;
-//    private final boolean confirmed;
-    private final boolean vip;
+    private String firstName;
 
-    public GuestCreationDTO(@NotBlank String firstName, @NotBlank String lastName,
-                            @Past(message = "Data w przeszłości musi byc") LocalDate dateOfBirth,
-                            Gender gender, String vip) {
+    @NotBlank
+    private String lastName;
+
+    @Past(message = "Data urodzenia musi być w przeszłości")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate dateOfBirth;
+
+    private Gender gender;
+
+    private boolean vip;
+
+    public GuestCreationDTO(String firstName, String lastName, LocalDate dateOfBirth, Gender gender, String vip) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
 
-        if(vip==null || !vip.equals("on")){
-            this.vip=false;
-        }else{
-            this.vip=true;
+        if(vip==null || !vip.equals("on")) {
+            this.vip = false;
+        } else {
+            this.vip = true;
         }
     }
 
@@ -53,10 +55,7 @@ public class GuestCreationDTO {
         return gender;
     }
 
-//    public boolean isConfirmed() {
-//        return confirmed;
-//    }
-    public boolean isVip(){
+    public boolean isVip() {
         return vip;
     }
 
@@ -64,12 +63,8 @@ public class GuestCreationDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GuestCreationDTO dto = (GuestCreationDTO) o;
-        return vip == dto.vip &&
-                Objects.equals(firstName, dto.firstName) &&
-                Objects.equals(lastName, dto.lastName) &&
-                Objects.equals(dateOfBirth, dto.dateOfBirth) &&
-                gender == dto.gender;
+        GuestCreationDTO that = (GuestCreationDTO) o;
+        return vip == that.vip && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender;
     }
 
     @Override

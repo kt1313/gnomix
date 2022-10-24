@@ -7,9 +7,11 @@ import pl.clockworkjava.gnomix.domain.reservation.events.TempReservationCreatedE
 
 @Component
 public class HandleEvents {
+
     @Async
     @EventListener
-    public void handleTempReservationCreatedEvents(TempReservationCreatedEvent event) {
+    public void handleTempReservationCreatedEvent(TempReservationCreatedEvent event) {
         System.out.println("Handle event by adnotation");
     }
+
 }

@@ -13,17 +13,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class RoomRepositoryTest {
 
     @Autowired
-    private RoomRepository roomRepository;
+    private RoomRepository repository;
 
     @Test
     public void getByRoomNumber() {
 
-        Room r1 = new Room("1A", Arrays.asList(BedType.SINGLE));
-        this.roomRepository.save(r1);
+        Room r1 = new Room("1A", Arrays.asList(BedType.DOUBLE));
 
-        Optional<Room> result = this.roomRepository.findFirstByNumberCaseInsensitive("1a");
+        this.repository.save(r1);
+
+        Optional<Room> result = this.repository.findFirstByNumberCaseInsensitive("1a");
+
         assertTrue(result.isPresent());
 
     }
-
 }

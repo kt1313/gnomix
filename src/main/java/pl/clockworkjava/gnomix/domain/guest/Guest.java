@@ -6,8 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.UUID;
-
 
 @Data
 @Setter(value = AccessLevel.NONE)
@@ -16,50 +14,52 @@ public class Guest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  long id;
+    private long id;
 
-
-    private  String firstName;
-    private  String lastName;
-    private  LocalDate birthDate;
-    private  Gender gender;
+    private String firstName;
+    private String lastName;
+    private LocalDate birthDate;
+    private Gender gender;
     private boolean vip;
     private String customerId;
 
-    @Column (name="phone")
+    @Column(name = "phone")
     private String phoneNumber;
 
+    Guest() {
 
-    public Guest( String firstName,
-                 String lastName, LocalDate birthDate,
-                 Gender gender, boolean vip) {
+    }
+
+    public Guest(String firstName, String lastName, LocalDate birthDate, Gender gender) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
-        this.vip=vip;
-
-    }
-
-    public Guest() {
-
+        this.vip = false;
     }
 
     public Guest(String firstName, String lastName, LocalDate dateOfBirth) {
         this.firstName = firstName;
-        this.lastName = lastName;
+        this.lastName= lastName;
         this.birthDate = dateOfBirth;
     }
 
-    public void update(String firstName,
-                       String lastName, LocalDate birthDate,
-                       Gender gender,  String customerId){
+    public void update(String firstName, String lastName, LocalDate birthDate, Gender gender, String customerId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
-//        this.vip=vip;
-        this.customerId=customerId;
+//        this.vip = false;
+        this.customerId = customerId;
+    }
+
+    public Guest(String firstName, String lastName, LocalDate birthDate, Gender gender, boolean vip) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.vip = vip;
     }
 
     public String getCustomerId() {
@@ -70,18 +70,12 @@ public class Guest {
         this.customerId = customerId;
     }
 
-    @Override
-    public String toString() {
-        return "Imię: " + firstName +
-                ", Nazwisko: " + lastName  +
-                ", Data urodzenia: " + birthDate +
-                ", Płeć: " + gender+", VIP: "+vip ;
-    }
+    public void setPhoneNumber(String phoneNumber) {
 
-    public void setPhoneNumber(String phoneNumber){
-        if (phoneNumber.length()>20){
-            throw new IllegalArgumentException("Number too long");
+        if(phoneNumber.length()>20) {
+            throw new IllegalArgumentException("Phone number to long");
         }
-        this.phoneNumber=phoneNumber;
+
+        this.phoneNumber = phoneNumber;
     }
 }

@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Utwórz nową rezerwację</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,44 +25,46 @@
                 <a class="nav-link" href="/reservations">Rezerwacje</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"
-                   href="/reservations/create/stepone">Utwórz rezerwację</a>
+                <a class="nav-link" href="/reservations/create/stepone">Utwórz rezerwacje</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="p-3 text-center bg-light"><h2 class="mb-3">Dodaj nową rezerwację</h2>
+<div class="p-3 text-center bg-light">
+    <h3 class="mb-3">Dodaj nową rezerwację</h3>
 </div>
 
 <div class="container">
-
     <form th:action="@{/reservations/create/steptwo}" method="post">
 
         <div class="form-group">
-            <label for="newreservationfromdate">Data rozpoczęcia rezerwacji: </label>
+            <label for="newreservationfromdate">Data rozpoczęcia rezerwacji:</label>
             <input type="date" name="fromDate" required
                    class="form-control" id="newreservationfromdate"/>
         </div>
 
         <div class="form-group">
-            <label for="newreservationtodate">Data zakończenia rezerwacji: </label>
+            <label for="newreservationtodate">Data zakończenia rezerwacji:</label>
             <input type="date" name="toDate" required
                    class="form-control" id="newreservationtodate"/>
         </div>
 
         <div class="form-group">
-            <label for="newreservationsize">Ile osób: </label>
+            <label for="newreservationsize">Ile osób:</label>
             <input type="number" name="size" required
                    class="form-control" id="newreservationsize"/>
         </div>
 
         <div class="form-group">
-            <label for="newreservationemail">Twój email: </label>
+            <label for="newreservationsize">Twój email:</label>
             <input type="email" name="email" required
                    class="form-control" id="newreservationemail"/>
         </div>
-        <input type="submit" class="btn-primary" value="Utwórz rezerwację"/>
+
+
+        <input type="submit" class="btn btn-primary" value="Utwórz rezerwację" />
+
         <div th:if="${not #lists.isEmpty(errors)}">
             <h3>Błąd przy tworzeniu rezerwacji</h3>
             <ul>

@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Edytuj pokój</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,75 +25,88 @@
                 <a class="nav-link" href="/reservations">Rezerwacje</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"
-                   href="/reservations/create/stepone">Utwórz rezerwację</a>
+                <a class="nav-link" href="/reservations/create/stepone">Utwórz rezerwacje</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="p-3 text-center bg-light"><h2 class="mb-3">Edytuj pokój</h2>
+<div class="p-3 text-center bg-light">
+    <h2 class="mb-3">Edytuj pokój</h2>
 </div>
 
 <div class="container">
-
     <form th:action="@{/rooms/edit}" method="post">
-        <input type="hidden" name="id" th:value="${room.getId}">
-        <p>Numer pokoju: <input type="text" name="roomNumber" th:value="${room.getNumber}" required/></p>
-        <p>Rozklad Lóżek:
-            <select name="bedsDescription" th:value="${bedsAsStr}" required>
-                <option value="1">Pojedyncze</option>
-                <option value="2">Podwójne</option>
-                <option value="1+1">Dwa pojedyncze</option>
-                <option value="2+1">Podwójne plus pojedyncze</option>
-                <option value="2+2">Podwójne plus podwójne</option>
-                <option value="2+1+1">Podwójne plus dwa pojedyncze</option>
-            </select>
-
-        </p>
-
+        <input type="hidden" name="id" th:value="${room.id}"/>
 
         <div class="form-group">
-            <label for="createnewroomdescription">Opis pokoju: </label>
+            <label for="editroomnumber">Numer pokoju:</label>
+            <input type="text" name="number" th:value="${room.number}" required
+                   class="form-control" id="editroomnumber"/>
+        </div>
+
+        <div class="form-group">
+            <label for="editroombeds">Rozkład Lóżek:</label>
+            <select name="bedsDesc" class="form-control" id="editroombeds">
+                <option value="2" th:selected="${bedsAsStr=='2'}">Podwójne</option>
+                <option value="1" th:selected="${bedsAsStr=='1'}">Pojedyncze</option>
+                <option value="2+2" th:selected="${bedsAsStr=='2+2'}">Podwójne + Podwójne</option>
+                <option value="2+1" th:selected="${bedsAsStr=='2+1'}">Podwójne + Pojedyncze</option>
+                <option value="2+1+1" th:selected="${bedsAsStr=='2+1+1'}">Podwójne + Pojedyncze + Pojedyncze</option>
+                <option value="2+1+1+1" th:selected="${bedsAsStr=='2+1+1+1'}">Podwójne + Pojedyncze + Pojedyncze + Pojedyncze</option>
+                <option value="1+1" th:selected="${bedsAsStr=='1+1'}">Pojedyncze + Pojedyncze</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="createnewroomdescription">Opis pokoju:</label>
             <textarea type="text" name="description" th:value="${room.description}"
-                      class="form-control" id="createnewroomdescription"></textarea>
+                      class="form-control" id="createnewroomdescription"></textarea></p>
         </div>
-        <div th:if="${not #lists.isEmpty(room.photosUrl)}">
+
+        <div th:if="${not #lists.isEmpty(room.photosUrls)}">
             <div class="form-group">
-                <label for="createnewroomphotosurl1">URL zdjecia: </label>
-                <input type="text" name="photosUrl" th:value="${room.photosUrl[0]}"
-                       class="form-control" id="createnewroomphotosurl1"/>
+                <label for="createnewroomphotosurls1">URL zdjęcia:</label>
+                <input type="text" name="photosUrls" th:value="${room.photosUrls[0]}"
+                       class="form-control" id="createnewroomphotosurls1"/></p>
             </div>
+
             <div class="form-group">
-                <label for="createnewroomphotosurl2">URL zdjecia: </label>
-                <input type="text" name="photosUrl" th:value="${room.photosUrl[1]}"
-                       class="form-control" id="createnewroomphotosurl2"/>
+                <label for="createnewroomphotosurls2">URL zdjęcia::</label>
+                <input type="text" name="photosUrls" th:value="${room.photosUrls[1]}"
+                       class="form-control" id="createnewroomphotosurls2"/></p>
             </div>
+
             <div class="form-group">
-                <label for="createnewroomphotosurl3">URL zdjecia: </label>
-                <input type="text" name="photosUrl" th:value="${room.photosUrl[2]}"
-                       class="form-control" id="createnewroomphotosurl3"/>
-            </div>
-        </div>
-        <div th:if="${ #lists.isEmpty(room.photosUrl)}">
-            <div class="form-group">
-                <label for="createnewroomphotosurl11">URL zdjecia: </label>
-                <input type="text" name="photosUrl"
-                       class="form-control" id="createnewroomphotosurl11"/>
-            </div>
-            <div class="form-group">
-                <label for="createnewroomphotosurl22">URL zdjecia: </label>
-                <input type="text" name="photosUrl"
-                       class="form-control" id="createnewroomphotosurl22"/>
-            </div>
-            <div class="form-group">
-                <label for="createnewroomphotosurl33">URL zdjecia: </label>
-                <input type="text" name="photosUrl"
-                       class="form-control" id="createnewroomphotosurl33"/>
+                <label for="createnewroomphotosurls3">URL zdjęcia::</label>
+                <input type="text" name="photosUrls" th:value="${room.photosUrls[2]}"
+                       class="form-control" id="createnewroomphotosurls3"/></p>
             </div>
         </div>
 
-        <p><input type="submit" name="Submit"/></p>
+        <div th:if="${#lists.isEmpty(room.photosUrls)}">
+            <div class="form-group">
+                <label for="createnewroomphotosurls11">URL zdjęcia:</label>
+                <input type="text" name="photosUrls"
+                       class="form-control" id="createnewroomphotosurls11"/></p>
+            </div>
+
+            <div class="form-group">
+                <label for="createnewroomphotosurls22">URL zdjęcia::</label>
+                <input type="text" name="photosUrls"
+                       class="form-control" id="createnewroomphotosurls22"/></p>
+            </div>
+
+            <div class="form-group">
+                <label for="createnewroomphotosurls33">URL zdjęcia::</label>
+                <input type="text" name="photosUrls"
+                       class="form-control" id="createnewroomphotosurls33"/></p>
+            </div>
+        </div>
+
+
+
+        <input type="submit" class="btn btn-primary" value="Edytuj pokój" />
     </form>
 </div>
 </body>

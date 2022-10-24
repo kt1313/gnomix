@@ -8,10 +8,10 @@ import pl.clockworkjava.gnomix.domain.reservation.events.TempReservationCreatedE
 
 @Component
 public class HandleAuditTempReservationCreateEvent {
+
     @Async
     @EventListener
     public void handleTempReservationCreatedEvent(TempReservationCreatedEvent event) {
-        System.out.println("Audit - Handle async event ");
+        System.out.println("Audit - Handle async event");
     }
 }
-

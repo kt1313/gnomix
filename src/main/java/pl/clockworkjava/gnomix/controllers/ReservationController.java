@@ -1,6 +1,5 @@
 package pl.clockworkjava.gnomix.controllers;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 import pl.clockworkjava.gnomix.domain.room.Room;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +28,7 @@ public class ReservationController {
 
     @GetMapping
     public String reservations(Model m) {
-        m.addAttribute("reservations",
-                this.reservationService.getAll());
-
+        m.addAttribute("reservations", this.reservationService.getAll());
         return "reservations";
     }
 
@@ -45,28 +41,27 @@ public class ReservationController {
     public String creationWizardStepTwo(
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
-            int size,
-            String email,
-            Model model) {
+            int size, String email, Model m) {
 
         List<String> errors = new ArrayList<>();
-        if (size < 0 || size > 10) {
-            errors.add("Nieprawidłowa ilość osób, max. 10 osób");
-        }
-        if (fromDate.equals(toDate) || toDate.isBefore(fromDate)) {
-            errors.add("Nieprawidłowe daty rezerwacji");
+
+        if(size<0 || size>10) {
+            errors.add("Nieprawidłowa ilość osób, pokoje (apartamenty) mieszczą maksymalnie 10 osób.");
         }
 
-        if (errors.isEmpty()) {
+        if(fromDate.isEqual(toDate) || toDate.isBefore(fromDate)) {
+            errors.add("Nieprawidłowe daty rezeracji.");
+        }
+
+        if(errors.isEmpty()) {
             List<Room> rooms = this.reservationService.getAvailableRooms(fromDate, toDate, size);
-            model.addAttribute("rooms", rooms);
-            model.addAttribute("fromDate", fromDate);
-            model.addAttribute("toDate", toDate);
-            model.addAttribute("email",email);
-
+            m.addAttribute("rooms", rooms);
+            m.addAttribute("fromDate", fromDate);
+            m.addAttribute("toDate", toDate);
+            m.addAttribute("email", email);
             return "reservationStepTwo";
         } else {
-            model.addAttribute("errors", errors);
+            m.addAttribute("errors", errors);
             return "reservationStepOne";
         }
     }
@@ -75,13 +70,14 @@ public class ReservationController {
     public String finalizeReservation(long roomId,
                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
-                                      String email){
+                                      String email) {
 
-        this.reservationService.createTemporaryReservation(roomId,fromDate, toDate, email);
+        this.reservationService.createTemporaryReservation(roomId, fromDate, toDate, email);
         return "reservationConfirmed";
+
     }
 
-    //confirm/reservationID
+    // /confirm/  43
     @GetMapping("/confirm/{reservationId}")
     public String confirmReservation(@PathVariable long reservationId, Model model) {
 
@@ -89,14 +85,15 @@ public class ReservationController {
 
         model.addAttribute("success", success);
         model.addAttribute("reservationId", reservationId);
+
         return "reservationconfirmation";
     }
 
     @GetMapping("/delete/{id}")
-    public String removeReservation(@PathVariable("id") long id){
+    public String remove(@PathVariable long id) {
+
         this.reservationService.removeById(id);
 
-        return "redirect:/reservaions";
+        return "redirect:/reservations";
     }
-
 }

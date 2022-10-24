@@ -1,4 +1,4 @@
-package pl.clockworkjava.gnomix.util.email;
+package pl.clockworkjava.gnomix.util.mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,31 +8,37 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
-    //
+
     private final JavaMailSender sender;
-    //
+
     @Value("${gnomix.protocol}")
     private String protocol;
+
     @Value("${gnomix.domain}")
     private String domain;
+
     @Value("${gnomix.port}")
     private String port;
-    private String confirmationEndpoint = "reservation/confirm";
+
+    private String confirmationEndpoint = "reservations/confirm";
 
     @Autowired
     public EmailService(JavaMailSender sender) {
         this.sender = sender;
     }
 
-    public void sendConfirmationEmail(String email, long reservationID) {
+    public void sendConfirmationEmail(String email, long reservationId) {
 
-        String endpoint = String.format("%s://%s:%s/%s/%d", protocol, domain, port, confirmationEndpoint, reservationID);
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(email);
-        mail.setFrom("systemgnomix@gmail.com");
-        mail.setSubject("Potwierdzenie rezerwacji hotelu TEST TEST TEST");
-        mail.setText("Dziękujemy za rezerwację, by ją potwierdzić, kliknij w link " + endpoint);
-        this.sender.send(mail);
-    }
 
+        String endpoint = String.format("%s://%s:%s/%s/%d", protocol, domain, port, confirmationEndpoint, reservationId);
+
+        mail.setTo(email);
+        mail.setFrom("k1313coding@gmail.com");
+        mail.setSubject("Potwierdź rezerwację");
+        mail.setText("Dziękujemy za dokonanie rezerwacji, by ją potwierdzić kliknij w link: " + endpoint);
+
+        this.sender.send(mail);
+
+    }
 }
