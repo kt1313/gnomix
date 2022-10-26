@@ -35,7 +35,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/rooms", true)
+                .and()
+                .rememberMe();
     }
     @Override
     @Bean
