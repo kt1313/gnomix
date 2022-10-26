@@ -3,6 +3,7 @@ package pl.clockworkjava.gnomix.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,9 +28,14 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/v3/api-docs/*")
                 .permitAll()
+                .antMatchers(HttpMethod.GET, "/api/rooms/**")
+                .hasAnyRole("MANAGER", "RECEPTION")
+                .antMatchers("/api/rooms/**", "/rooms/**")
+                .hasRole("MANAGER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -42,8 +48,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails user = User.builder()
                 .username("k1313")
                 .password(this.encoder.encode("k1313"))
-                .roles("OWNER").build();
+                .roles("MANAGER").build();
 
-        return new InMemoryUserDetailsManager(user);
+        UserDetails user2 = User.builder()
+                .username("ali")
+                .password(this.encoder.encode("ali"))
+                .roles("RECEPTION").build();
+        return new InMemoryUserDetailsManager(user, user2);
     }
 }
