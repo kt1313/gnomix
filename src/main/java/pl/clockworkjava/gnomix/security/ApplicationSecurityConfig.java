@@ -40,7 +40,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new CustomAuthenticationFiler(authenticationManager()))
+                .addFilter(new CustomAuthenticationFilter(authenticationManager()))
                 .authorizeRequests()
                 .antMatchers("/v3/api-docs/*")
                 .permitAll()

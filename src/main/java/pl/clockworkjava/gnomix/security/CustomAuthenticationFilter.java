@@ -14,15 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
- class CustomAuthenticationFilter {
-
-    @Slf4j
-    class CustomAuthenticationFiler extends UsernamePasswordAuthenticationFilter {
+@Slf4j
+ class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 
         private AuthenticationManager authenticationManager;
 
         @Autowired
-        public CustomAuthenticationFiler(AuthenticationManager authenticationManager) {
+        public CustomAuthenticationFilter(AuthenticationManager authenticationManager) {
             super();
             this.authenticationManager = authenticationManager;
         }
@@ -48,4 +46,4 @@ import java.io.IOException;
             super.successfulAuthentication(request, response, chain, authResult);
         }
     }
-}
+
