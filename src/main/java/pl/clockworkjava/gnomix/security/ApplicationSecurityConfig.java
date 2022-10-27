@@ -3,6 +3,7 @@ package pl.clockworkjava.gnomix.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -28,7 +29,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailService;
 
     @Autowired
-    public ApplicationSecurityConfig(PasswordEncoder encoder, UserDetailsService service) {
+    public ApplicationSecurityConfig(@Lazy PasswordEncoder encoder, UserDetailsService service) {
         this.encoder = encoder;
         this.userDetailService = service;
     }
@@ -40,21 +41,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new CustomAuthenticationFilter(authenticationManager()))
+                .addFilter(new CustomAuthenticationFiler(authenticationManager()))
+                .addFilterBefore(new CustomAuthenticationFilter(), CustomAuthenticationFiler.class)
                 .authorizeRequests()
-                .antMatchers("/v3/api-docs/*")
+                .antMatchers("/v3/api-docs/*", "/login", "/api/login/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
-
-//                .and()
-//                .formLogin()
-//                .loginPage("/login").permitAll()
-//                .defaultSuccessUrl("/rooms", true)
-//                .and()
-//                .rememberMe()
-//                .and()
-//                .logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"));
     }
 }
