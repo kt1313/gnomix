@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -40,6 +41,7 @@ public class RestRoomControllerTest {
     private ObjectMapper mapper;
 
     @Test
+    @WithMockUser(username = "k1313", roles = {"RECEPTION"} )
     public void getFreeRoomsHappyPath() throws Exception {
 
         //given
@@ -81,6 +83,8 @@ public class RestRoomControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "k1313", roles = {"RECEPTION"} )
+
     public void getFreeRoomsInvalidSize() throws Exception {
 
         String url = "/api/getFreeRooms?from=2022-03-12&to=2022-03-13&size=20";
