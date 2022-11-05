@@ -38,7 +38,12 @@ public class RoomController {
     @PostMapping("/create")
     public String handleCreateNewRoom(RoomCreateDTO dto) {
 
-        this.roomService.createNewRoom(dto.number(), dto.bedsDesc(), dto.description(), dto.photosUrls());
+        this.roomService.createNewRoom(
+                dto.getNumber(),
+                dto.getBedsDesc(),
+                dto.getDescription(),
+                dto.getPhotosUrls()
+        );
 
         return "redirect:/rooms";
     }
@@ -65,7 +70,13 @@ public class RoomController {
     @PostMapping("/edit")
     public String editRoom(RoomUpdateDTO dto) {
 
-        this.roomService.update(dto.id(), dto.number(), dto.bedsDesc(), dto.description(), dto.photosUrls());
+        this.roomService.update(
+                dto.getId(),
+                dto.getNumber(),
+                dto.getBedsDesc(),
+                dto.getDescription(),
+                dto.getPhotosUrls()
+        );
 
         return "redirect:/rooms";
     }

@@ -12,18 +12,18 @@ import java.util.Objects;
 public class GuestCreationDTO {
 
     @NotBlank
-    private String firstName;
+    private final String firstName;
 
     @NotBlank
-    private String lastName;
+    private final String lastName;
 
     @Past(message = "Data urodzenia musi być w przeszłości")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate dateOfBirth;
+    private final LocalDate dateOfBirth;
 
-    private Gender gender;
+    private final Gender gender;
 
-    private boolean vip;
+    private final boolean vip;
 
     public GuestCreationDTO(String firstName, String lastName, LocalDate dateOfBirth, Gender gender, String vip) {
 
@@ -32,11 +32,7 @@ public class GuestCreationDTO {
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
 
-        if(vip==null || !vip.equals("on")) {
-            this.vip = false;
-        } else {
-            this.vip = true;
-        }
+        this.vip = vip != null && vip.equals("on");
     }
 
     public String getFirstName() {
@@ -61,10 +57,16 @@ public class GuestCreationDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         GuestCreationDTO that = (GuestCreationDTO) o;
-        return vip == that.vip && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender;
+        return vip == that.vip
+                && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName)
+                && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender;
     }
 
     @Override
